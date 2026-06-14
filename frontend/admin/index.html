@@ -775,9 +775,9 @@
     async function loadDashboardTab() {
       try {
         // Fetch analytics + version in parallel
-        const [analytics, versionData, healthData] = await Promise.all([
+        const [analytics, versionsData, healthData] = await Promise.all([
           apiFetch('/api/admin/analytics'),
-          apiFetch('/api/version').catch(() => null),
+          apiFetch('/api/admin/versions').catch(() => null),
           fetch(FITJONE_API_URL + '/api/health').then(r => r.json()).catch(() => null),
         ]);
 
@@ -804,7 +804,7 @@
         $('#stat-monthly').classList.remove('loading-pulse');
 
         // Current Version
-        const v = versionData.version || versionData;
+        const v = versionsData?.versions?.[0] || {};
         const cvContent = $('#current-version-content');
         cvContent.classList.remove('loading-pulse');
         cvContent.innerHTML = `
