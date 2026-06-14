@@ -644,6 +644,7 @@
       if (res.status === 401) {
         localStorage.removeItem(STORAGE_KEY);
         showLogin();
+        showMessage(loginError, 'Invalid Admin API Key');
         throw new Error('Unauthorized — session expired');
       }
 
