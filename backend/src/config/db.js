@@ -5,11 +5,13 @@ const connectDB = async () => {
   try {
     mongoose.set('strictQuery', false);
 
-    const conn = await mongoose.connect(env.mongoUri);
+    const conn = await mongoose.connect(env.mongoUri, {
+      serverSelectionTimeoutMS: 5000, // Fail fast if DB unavailable or network error
+    });
 
-    console.log(`✅ MongoDB connected: ${conn.connection.host}`);
+    console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
-    console.error(`❌ MongoDB connection error: ${error.message}`);
+    console.error(`❌ MongoDB Connection Failed: ${error.message}`);
     process.exit(1);
   }
 

@@ -19,7 +19,7 @@ const env = {
   port: parseInt(process.env.PORT, 10) || 5000,
   mongoUri: process.env.MONGODB_URI,
   adminApiKey: process.env.ADMIN_API_KEY,
-  frontendUrl: process.env.FRONTEND_URL || 'http://localhost:5500',
+  frontendUrl: (process.env.FRONTEND_URL || 'http://localhost:5500').replace(/\/$/, ''),
   nodeEnv: process.env.NODE_ENV || 'development',
   rateLimitWindowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS, 10) || 900000, // 15 min
   rateLimitMaxRequests: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS, 10) || 100,

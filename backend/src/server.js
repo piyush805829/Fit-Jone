@@ -30,12 +30,31 @@ app.use(
   })
 );
 
-// CORS — allow the configured frontend URL, and also '*' in development
+// CORS — allow the configured frontend URL(s) and any Vercel domain
 const corsOptions = {
-  origin: env.nodeEnv === 'development' ? '*' : env.frontendUrl,
+  origin: function (origin, callback) {
+    // Allow requests with no origin (e.g., mobile apps, curl)
+    if (!origin) return callback(null, true);
+
+    if (env.nodeEnv === 'development') {
+      return callback(null, true);
+    }
+
+    // Support comma-separated FRONTEND_URL list
+    const allowedOrigins = env.frontendUrl.split(',').map((u) => u.trim());
+
+    if (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
+      return callback(null, true);
+    }
+
+    callback(new Error('CORS Error: Origin not allowed'));
+  },
   credentials: true,
+  allowedHeaders: ['Content-Type', 'x-admin-key', 'Authorization', 'Accept'],
 };
+
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Handle preflight OPTIONS requests across all routes
 
 // Body parsing
 app.use(express.json({ limit: '10mb' }));
