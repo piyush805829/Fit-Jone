@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en" style=""><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="description" content="FitJone - Your AI Fitness Companion. Download the latest APK for smarter workouts, AI form correction, and personalized coaching.">
+<meta name="keywords" content="FitJone, fitness app, AI fitness, workout tracker, APK download">
+<meta property="og:title" content="FitJone - AI Fitness Companion">
+<meta property="og:description" content="Smarter workouts. Better habits. Download FitJone APK now.">
+<meta property="og:type" content="website">
+<title>FitJone - AI Fitness Companion</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#004c69",
+                        "on-primary-container": "#004965",
+                        "on-tertiary-fixed": "#0d1c2d",
+                        "surface": "#0f1418",
+                        "on-tertiary-fixed-variant": "#39485a",
+                        "on-primary-fixed": "#001e2c",
+                        "surface-container-lowest": "#0a0f12",
+                        "tertiary": "#becee4",
+                        "surface-tint": "#7bd0ff",
+                        "surface-container": "#1b2024",
+                        "surface-bright": "#343a3e",
+                        "inverse-surface": "#dee3e8",
+                        "secondary-fixed-dim": "#a4c9ff",
+                        "on-primary": "#00354a",
+                        "tertiary-container": "#a3b2c7",
+                        "on-secondary-container": "#d6e5ff",
+                        "secondary": "#a4c9ff",
+                        "on-surface": "#dee3e8",
+                        "primary-fixed": "#c4e7ff",
+                        "outline-variant": "#3e484f",
+                        "on-surface-variant": "#bdc8d1",
+                        "primary-fixed-dim": "#7bd0ff",
+                        "surface-container-low": "#171c20",
+                        "surface-container-highest": "#303539",
+                        "outline": "#87929a",
+                        "on-error": "#690005",
+                        "error": "#ffb4ab",
+                        "on-background": "#dee3e8",
+                        "background": "#0f1418",
+                        "secondary-container": "#0267b8",
+                        "on-error-container": "#ffdad6",
+                        "surface-variant": "#303539",
+                        "secondary-fixed": "#d4e3ff",
+                        "on-secondary-fixed": "#001c39",
+                        "surface-dim": "#0f1418",
+                        "surface-container-high": "#252b2e",
+                        "tertiary-fixed-dim": "#b9c8de",
+                        "error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#004883",
+                        "on-tertiary-container": "#364557",
+                        "inverse-on-surface": "#2c3135",
+                        "tertiary-fixed": "#d4e4fa",
+                        "primary-container": "#38bdf8",
+                        "on-secondary": "#00315d",
+                        "on-tertiary": "#233143",
+                        "inverse-primary": "#00668a",
+                        "primary": "#8ed5ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "container-max": "1280px",
+                        "xl": "32px",
+                        "lg": "24px",
+                        "2xl": "48px",
+                        "gutter": "24px",
+                        "base": "4px",
+                        "md": "16px",
+                        "3xl": "64px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "display-lg-mobile": ["Space Grotesk", "sans-serif"],
+                        "headline-md": ["Space Grotesk", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "headline-sm": ["Space Grotesk", "sans-serif"],
+                        "label-sm": ["JetBrains Mono", "monospace"],
+                        "label-md": ["JetBrains Mono", "monospace"],
+                        "display-lg": ["Space Grotesk", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["15px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display-lg-mobile": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700" }],
+                        "headline-md": ["36px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-sm": ["28px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "label-sm": ["11px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "label-md": ["13px", { "lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "display-lg": ["72px", { "lineHeight": "1", "letterSpacing": "-0.04em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #07111F;
+            color: #dee3e8;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #8ed5ff 0%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-text-subtle {
+            background: linear-gradient(90deg, #dee3e8 0%, #8ed5ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+        .delay-400 { animation-delay: 400ms; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .btn-hover-glow {
+            transition: all 0.3s ease;
+        }
+
+        .btn-hover-glow:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+        }
+
+        .bg-parallax {
+            background-image: linear-gradient(rgba(7, 17, 31, 0.85), rgba(7, 17, 31, 0.85)), url("https://lh3.googleusercontent.com/aida-public/AB6AXuDTsmxY0UmxfngSZTuHbunkR63mZTRStKC7yCOW3Lh3684nyvrqTmSORrvzyXm-4WljBQvTVZ2D-GmprHEHtc2_fF29cyseP5gDaZAjwc0W4xUOBNtc9-FsY05exO_-zSdgCB1GA11M-MpMx9n7SFbPuCssq5ORkVNZ-x5H2mOO_SOxygLB6V7lGTquoxsw92r9q6M3LoXmqhCC8173zEGTdqppSwfuxDnvifNN1j8Zl8NFhjN1lC7XtqqlkEh7xXokSGvNnrH_eKU");
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal, .fade-in-up, .floating-element, .btn-hover-glow, .bg-parallax {
+                animation: none !important;
+                transition: none !important;
+                transform: none !important;
+                opacity: 1 !important;
+            }
+            .bg-parallax {
+                background-attachment: scroll;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-primary-container selection:text-on-primary-container bg-transparent bg-parallax">
+
+<!-- Update Notification Banner -->
+<div id="update-banner" class="hidden fixed top-0 w-full z-[100] bg-primary text-[#07111F] shadow-xl border-b border-primary-light/30">
+  <div class="flex items-center justify-between px-gutter py-3 max-w-container-max mx-auto">
+    <div class="flex items-center gap-4">
+      <span class="material-symbols-outlined text-[#07111F]/80 text-2xl">rocket_launch</span>
+      <div>
+        <div class="font-label-md font-bold uppercase tracking-widest text-sm">New Version Available</div>
+        <div class="font-body-sm opacity-90 mt-0.5">FitJone <span id="banner-version">v...</span> is now available. (<span id="banner-size">...</span>)</div>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+      <button data-download class="bg-[#07111F] text-white px-4 py-1.5 rounded font-label-sm font-bold uppercase hover:bg-surface transition-colors tracking-widest shadow-md">Download Now</button>
+      <button id="close-banner-btn" class="p-1 hover:bg-black/10 rounded-full transition-colors flex items-center justify-center" aria-label="Dismiss">
+        <span class="material-symbols-outlined text-lg">close</span>
+      </button>
+    </div>
+  </div>
+</div>
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-outline-variant/10 fade-in-up">
+<div class="flex justify-between items-center h-16 px-gutter max-w-container-max mx-auto">
+<div class="flex items-center gap-2">
+<a href="index.html" class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="fitness_center" style='font-variation-settings: "FILL" 1;'>fitness_center</span>
+<span class="font-display-lg text-headline-sm text-on-surface dark:text-on-surface">FitJone</span>
+</a>
+</div>
+<div class="hidden md:flex items-center gap-lg"><a class="font-body-md text-body-md text-on-surface hover:text-on-surface transition-colors hover:bg-surface-container-high/50 px-3 py-2 rounded-md transition-all duration-200" href="index.html">Home</a><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors hover:bg-surface-container-high/50 px-3 py-2 rounded-md transition-all duration-200" href="features.html">Features</a><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors hover:bg-surface-container-high/50 px-3 py-2 rounded-md transition-all duration-200" href="#screenshots">Download<br/></a><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors hover:bg-surface-container-high/50 px-3 py-2 rounded-md transition-all duration-200" href="#">About</a></div>
+<button id="nav-download-btn" data-download class="bg-primary-container text-on-primary-container px-lg py-2 rounded-md font-label-md text-label-md hover:bg-primary transition-colors active:scale-95 duration-200 uppercase tracking-widest btn-hover-glow">DOWNLOAD APP</button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="pt-3xl">
+<!-- Hero Section -->
+<section class="min-h-[921px] flex items-center px-gutter max-w-container-max mx-auto relative overflow-hidden">
+<div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
+<div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary rounded-full blur-[120px]"></div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-2xl w-full z-10 relative">
+<div class="flex flex-col justify-center space-y-xl">
+<div class="font-label-sm text-label-sm text-primary uppercase tracking-[0.2em] mb-2 flex items-center gap-2 fade-in-up delay-100">
+<span class="w-8 h-[1px] bg-primary"></span>
+    Next-Gen Fitness
+</div>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface leading-none fade-in-up delay-200">
+                        Your AI Fitness <br/>
+<span class="gradient-text">Companion</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md font-light leading-relaxed fade-in-up delay-300">
+                        Smarter workouts. Better habits. Consistent progress. FitJone adapts to your performance in real-time, delivering precision programming.
+                    </p>
+<div class="flex items-center gap-md pt-lg fade-in-up delay-400">
+<button id="hero-download-btn" data-download class="bg-primary-container text-on-primary-container px-xl py-4 rounded-md font-label-md text-label-md hover:bg-primary transition-colors active:scale-95 duration-200 shadow-[0_0_20px_rgba(56,189,248,0.2)] uppercase tracking-wider btn-hover-glow">download apk</button>
+<button onclick="window.location.href='features.html'" class="bg-transparent border border-outline-variant/50 text-on-surface px-xl py-4 rounded-md font-label-md text-label-md hover:border-primary/50 transition-colors uppercase tracking-wider btn-hover-glow">features</button>
+</div>
+<div id="version-info" class="flex items-center gap-lg pt-sm fade-in-up delay-400" style="display: none;">
+  <div class="flex items-center gap-2">
+    <span class="material-symbols-outlined text-primary text-sm">verified</span>
+    <span id="version-text" class="font-label-sm text-label-sm text-on-surface-variant">v1.0.0</span>
+  </div>
+  <span class="text-outline-variant">•</span>
+  <span id="size-text" class="font-label-sm text-label-sm text-on-surface-variant">35 MB</span>
+  <span class="text-outline-variant">•</span>
+  <span id="date-text" class="font-label-sm text-label-sm text-on-surface-variant">June 2026</span>
+</div>
+</div>
+<div class="relative hidden lg:block h-[600px] fade-in-up delay-300">
+<div class="absolute inset-0 flex items-center justify-center">
+<!-- Abstract high-fidelity mockup representation -->
+<div class="w-[320px] h-[640px] rounded-[55px] bg-surface-container-highest border-[2px] border-outline-variant/50 shadow-2xl relative floating-element ring-1 ring-black/20">
+<!-- Hardware Buttons: Left Side (Volume/Action) -->
+<div class="absolute -left-[3px] top-24 w-[3px] h-8 bg-outline-variant rounded-l-sm"></div>
+<div class="absolute -left-[3px] top-36 w-[3px] h-12 bg-outline-variant rounded-l-sm"></div>
+<div class="absolute -left-[3px] top-52 w-[3px] h-12 bg-outline-variant rounded-l-sm"></div>
+<!-- Hardware Buttons: Right Side (Power) -->
+<div class="absolute -right-[3px] top-40 w-[3px] h-20 bg-outline-variant rounded-r-sm"></div>
+<!-- Inner Frame / Bezel -->
+<div class="absolute inset-[6px] rounded-[48px] bg-black p-[8px] shadow-inner">
+<!-- Dynamic Island -->
+<div class="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-full z-50 flex items-center justify-end px-3">
+<div class="w-2 h-2 rounded-full bg-white/5"></div>
+</div>
+<!-- Screen Content -->
+<div class="relative w-full h-full rounded-[40px] overflow-hidden">
+<img alt="FitJone App Screenshot" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsv5fvoPnnhr4Ltyiiua_xbbdo0sO4B9HLQwunQMv_uqYd50XOtBMUwRGraBWjOoFEMLEhEaggVc-pQLPTKVRibEVE9yEs_oLYuQfr_35zyFkf8CdaPqwenAhVDAh8RKpMXm4xV8R-oIjPDTw6ATEFgHi9DuCwh25QP6oHKpMDfNpUpIBBzwyP57BO4nZ5W4EU3Quy3SnBjW6m6UqM-g_AxIXoHC1ulePXHY_bB2d1MBes82IvbRp1n9ms2viOZLckiSVUMahIiko"/>
+<!-- Glass Reflection Overlay -->
+<div class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/10 via-transparent to-white/5 z-10 opacity-40"></div>
+<div class="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/5 to-transparent pointer-events-none z-10"></div>
+</div>
+</div>
+</div>
+<!-- Floating UI Snippet 1 -->
+<div class="absolute -right-8 top-1/4 glass-panel p-4 rounded-xl shadow-xl floating-element" style="animation-delay: -2s;">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="trending_up">trending_up</span>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase">Weekly Volume</div>
+<div class="font-headline-sm text-headline-sm text-on-surface mt-1">+12.4%</div>
+</div>
+</div>
+</div>
+<!-- Floating UI Snippet 2 -->
+<div class="absolute -left-12 bottom-1/3 glass-panel p-4 rounded-xl shadow-xl floating-element" style="animation-delay: -4s;">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle">check_circle</span>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase">Form Analysis</div>
+<div class="font-body-md text-body-md text-on-surface font-medium mt-1">Perfect Alignment</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface dark:bg-surface border-t border-outline-variant/5 py-3xl mt-2xl reveal active">
+<div class="flex flex-col md:flex-row justify-between items-start gap-xl px-gutter max-w-container-max mx-auto">
+<div>
+<div class="font-display-lg text-headline-sm text-on-surface dark:text-on-surface mb-md">FitJone</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xs font-light">
+                    © 2024 FitJone AI. Precision Fitness for High Performers.
+                </p>
+<div id="download-count" class="font-label-sm text-label-sm text-on-surface-variant mt-4" style="display:none;">
+  <span class="material-symbols-outlined text-primary text-sm align-middle">download</span>
+  <span id="count-text">0</span> downloads
+</div>
+</div>
+<div class="flex gap-xl">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">About</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Contact</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Privacy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Terms</a>
+</div>
+</div>
+</footer>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Intersection Observer for scroll reveals
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target); // Reveal only once
+                    }
+                });
+            }, observerOptions);
+
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(reveal => {
+                observer.observe(reveal);
+            });
+            
+            // Parallax effect on scroll
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                window.addEventListener('scroll', () => {
+                    const scrolled = window.pageYOffset;
+                    document.body.style.backgroundPositionY = -(scrolled * 0.3) + 'px';
+                });
+            }
+        });
+    </script>
+<script>
+  // ===== FitJone API Integration =====
+  const FITJONE_API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+    ? 'http://localhost:5000' 
+    : 'https://fitjone-api.onrender.com';
+
+  // Download handler with loading states
+  function handleDownload(buttonEl) {
+    const originalText = buttonEl.textContent;
+    buttonEl.textContent = 'PREPARING DOWNLOAD...';
+    buttonEl.disabled = true;
+    buttonEl.style.opacity = '0.7';
+
+    // Redirect to download endpoint (302 redirect to APK)
+    setTimeout(() => {
+      buttonEl.textContent = 'DOWNLOADING...';
+      window.location.href = FITJONE_API_URL + '/api/download';
+      
+      // Reset button after redirect
+      setTimeout(() => {
+        buttonEl.textContent = originalText;
+        buttonEl.disabled = false;
+        buttonEl.style.opacity = '1';
+      }, 3000);
+    }, 800);
+  }
+
+  // Attach click handlers to all download buttons
+  document.addEventListener('DOMContentLoaded', () => {
+    const downloadBtns = document.querySelectorAll('[data-download]');
+    downloadBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        handleDownload(btn);
+      });
+    });
+
+    // Fetch and display version info
+    fetchVersionInfo();
+    fetchDownloadCount();
+  });
+
+  async function fetchVersionInfo() {
+    try {
+      const res = await fetch(FITJONE_API_URL + '/api/version');
+      if (!res.ok) return;
+      const data = await res.json();
+      
+      const versionInfo = document.getElementById('version-info');
+      const versionText = document.getElementById('version-text');
+      const sizeText = document.getElementById('size-text');
+      const dateText = document.getElementById('date-text');
+      
+      if (versionInfo && data.version) {
+        versionText.textContent = 'v' + data.version;
+        sizeText.textContent = data.fileSize || 'N/A';
+        dateText.textContent = data.releaseDate || 'N/A';
+        versionInfo.style.display = 'flex';
+      }
+
+      // Check Update Banner
+      if (data.version) {
+        const dismissedKey = 'fitjone-dismissed-' + data.version;
+        if (!localStorage.getItem(dismissedKey)) {
+          const banner = document.getElementById('update-banner');
+          document.getElementById('banner-version').textContent = 'v' + data.version;
+          document.getElementById('banner-size').textContent = data.fileSize || 'N/A';
+          
+          banner.classList.remove('hidden');
+          banner.classList.add('fade-in-up');
+
+          document.getElementById('close-banner-btn').addEventListener('click', () => {
+            localStorage.setItem(dismissedKey, 'true');
+            banner.style.transition = 'all 0.4s ease';
+            banner.style.opacity = '0';
+            banner.style.transform = 'translateY(-100%)';
+            setTimeout(() => banner.classList.add('hidden'), 400);
+          });
+        }
+      }
+    } catch (e) {
+      console.log('Version info unavailable');
+    }
+  }
+
+  async function fetchDownloadCount() {
+    try {
+      const res = await fetch(FITJONE_API_URL + '/api/download-count');
+      if (!res.ok) return;
+      const data = await res.json();
+      
+      const countEl = document.getElementById('download-count');
+      const countText = document.getElementById('count-text');
+      
+      if (countEl && data.totalDownloads > 0) {
+        countText.textContent = data.totalDownloads.toLocaleString();
+        countEl.style.display = 'inline-flex';
+      }
+    } catch (e) {
+      console.log('Download count unavailable');
+    }
+  }
+</script>
+</body></html>

@@ -1,0 +1,616 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta name="description" content="FitJone - Your AI Fitness Companion. Download the latest APK for smarter workouts, AI form correction, and personalized coaching.">
+<meta name="keywords" content="FitJone, fitness app, AI fitness, workout tracker, APK download">
+<meta property="og:title" content="FitJone - AI Fitness Companion">
+<meta property="og:description" content="Smarter workouts. Better habits. Download FitJone APK now.">
+<meta property="og:type" content="website">
+<title>Features - FitJone</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&amp;family=JetBrains+Mono:wght@500&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#8ed5ff",
+                        "primary-container": "#38bdf8",
+                        "on-primary": "#00354a",
+                        "on-primary-container": "#004965",
+                        "secondary": "#a4c9ff",
+                        "background": "#0f1418",
+                        "background-deep": "#07111F",
+                        "surface": "#0f1418",
+                        "surface-glass": "rgba(15, 23, 42, 0.6)",
+                        "on-surface": "#dee3e8",
+                        "on-surface-variant": "#bdc8d1",
+                        "outline": "#87929a",
+                        "outline-variant": "#3e484f",
+                        "text-primary": "#dee3e8",
+                        "text-muted": "#bdc8d1",
+                        "accent-glow": "#8ed5ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "base": "4px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "2xl": "48px",
+                        "3xl": "64px",
+                        "gutter": "24px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["JetBrains Mono"],
+                        "label-md": ["JetBrains Mono"],
+                        "headline-sm": ["Space Grotesk"],
+                        "headline-md": ["Space Grotesk"],
+                        "display-lg": ["Space Grotesk"],
+                        "display-lg-mobile": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "300"}],
+                        "label-sm": ["11px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-md": ["13px", {"lineHeight": "1.0", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "headline-sm": ["28px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "headline-md": ["36px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "display-lg-mobile": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "display-lg": ["72px", {"lineHeight": "1.0", "letterSpacing": "-0.04em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #07111F;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .ambient-glow {
+            box-shadow: 0 0 40px rgba(56, 189, 248, 0.15);
+        }
+
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .phone-mockup {
+            position: relative;
+            width: 320px;
+            height: 650px;
+            background: #000;
+            border: 12px solid #1a1a1a;
+            border-radius: 48px;
+            box-shadow: 0 50px 100px -20px rgba(0,0,0,0.5), 0 0 20px rgba(56,189,248,0.1);
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease-out;
+        }
+
+        .phone-mockup img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .phone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 25px;
+            background: #000;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+            z-index: 10;
+        }
+
+        .scanning-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #38BDF8, transparent);
+            box-shadow: 0 0 15px #38BDF8;
+            animation: scan 3s linear infinite;
+            z-index: 5;
+        }
+
+        @keyframes scan {
+            0% { top: 0%; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        .parallax-target {
+            transition: transform 0.1s ease-out;
+        }
+
+        .stagger-item {
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .is-visible .stagger-item {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .stagger-item:nth-child(1) { transition-delay: 0.1s; }
+        .stagger-item:nth-child(2) { transition-delay: 0.2s; }
+        .stagger-item:nth-child(3) { transition-delay: 0.3s; }
+        .stagger-item:nth-child(4) { transition-delay: 0.4s; }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="text-on-background selection:bg-primary-container selection:text-on-primary-container" style="background-image: linear-gradient(rgba(7, 17, 31, 0.95), rgba(7, 17, 31, 0.95)), url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuAPKJyrAKl1QeD1od2qdwK9UBJqys6NmkqBJKwdx_xTF8OVU0wf4zXrfRUWy3MeQQhdrNQ6qyfVN2VtbkyA4C11L0jRGjupsBDVrp5MJYcPYxFUMvB2TTnu2pzEaOVQk1-QQyXkmT5vyw95uXHsEqBP9dPtk-BBBlrVHwfO1gj_TDxpzg9MDoIZ_T5woyqklwDg441i3zXrSuOafvdHs5TwR0IgtvUzsW5CY33RQAAXZVDehzyisj3s2agBGuC4KFF0gC3Vd0NQT68&quot;); background-attachment: fixed; background-size: cover; background-position: center center;">
+
+<!-- Update Notification Banner -->
+<div id="update-banner" class="hidden fixed top-0 w-full z-[100] bg-primary text-[#07111F] shadow-xl border-b border-primary-light/30">
+  <div class="flex items-center justify-between px-gutter py-3 max-w-container-max mx-auto">
+    <div class="flex items-center gap-4">
+      <span class="material-symbols-outlined text-[#07111F]/80 text-2xl">rocket_launch</span>
+      <div>
+        <div class="font-label-md font-bold uppercase tracking-widest text-sm">New Version Available</div>
+        <div class="font-body-sm opacity-90 mt-0.5">FitJone <span id="banner-version">v...</span> is now available. (<span id="banner-size">...</span>)</div>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+      <button data-download class="bg-[#07111F] text-white px-4 py-1.5 rounded font-label-sm font-bold uppercase hover:bg-surface transition-colors tracking-widest shadow-md">Download Now</button>
+      <button id="close-banner-btn" class="p-1 hover:bg-black/10 rounded-full transition-colors flex items-center justify-center" aria-label="Dismiss">
+        <span class="material-symbols-outlined text-lg">close</span>
+      </button>
+    </div>
+  </div>
+</div>
+<nav class="fixed top-0 w-full z-50 bg-surface-glass backdrop-blur-xl border-b border-white/5"><div class="flex justify-between items-center h-16 px-gutter max-w-container-max mx-auto"><div class="flex items-center gap-2"><a href="index.html" class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-2xl" data-icon="fitness_center" style="font-variation-settings: &quot;FILL&quot; 1;">fitness_center</span><span class="font-display-lg text-headline-sm text-on-surface">FitJone</span></a></div><div class="hidden md:flex items-center gap-lg"><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors hover:bg-surface-container-high/50 px-3 py-2 rounded-md transition-all duration-200" href="index.html">Home</a><a class="font-body-md text-body-md text-primary font-bold relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-0.5 after:bg-primary after:rounded-full px-3 py-2" href="features.html">Features</a><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors hover:bg-surface-container-high/50 px-3 py-2 rounded-md transition-all duration-200" href="index.html#screenshots">Download<br></a><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors hover:bg-surface-container-high/50 px-3 py-2 rounded-md transition-all duration-200" href="#">About</a></div><button data-download class="bg-primary-container text-on-primary-container px-lg py-2 rounded-md font-label-md text-label-md hover:bg-primary transition-colors active:scale-95 duration-200 uppercase tracking-widest">DOWNLOAD APP</button></div></nav>
+<main class="pt-20" style="--mouse-x: 20px; --mouse-y: 1848px;">
+<!-- Hero Section -->
+<section class="min-h-[80vh] flex items-center justify-center relative overflow-hidden px-gutter py-3xl">
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(56,189,248,0.08),transparent_70%)]"></div>
+<div class="max-w-4xl text-center z-10 reveal-on-scroll space-y-lg is-visible">
+<span class="inline-block px-md py-1 border border-primary/30 rounded-full text-primary font-label-md tracking-[0.2em] mb-md">FEATURES</span>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg leading-none tracking-tighter">Everything You Need To Train Smarter.</h1>
+<p class="font-body-lg text-text-muted max-w-2xl mx-auto">Master your fitness journey with personalized expert coaching and cutting-edge AI form correction built directly into your pocket.</p>
+<div class="pt-xl flex justify-center gap-md">
+<span class="material-symbols-outlined text-primary text-4xl animate-bounce">keyboard_arrow_down</span>
+</div>
+</div>
+</section>
+<!-- Feature 1: Coaches (Phone Left) -->
+<section class="py-3xl overflow-hidden">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="grid lg:grid-cols-2 gap-2xl items-center">
+<div class="flex justify-center lg:justify-start reveal-on-scroll is-visible">
+<div class="w-[320px] h-[640px] rounded-[55px] bg-surface-container-highest border-[2px] border-outline-variant/50 shadow-2xl relative hover:scale-105 transition-transform duration-500 cursor-default ring-1 ring-black/20">
+<div class="absolute -left-[3px] top-24 w-[3px] h-8 bg-outline-variant rounded-l-sm"></div>
+<div class="absolute -left-[3px] top-36 w-[3px] h-12 bg-outline-variant rounded-l-sm"></div>
+<div class="absolute -left-[3px] top-52 w-[3px] h-12 bg-outline-variant rounded-l-sm"></div>
+<div class="absolute -right-[3px] top-40 w-[3px] h-20 bg-outline-variant rounded-r-sm"></div>
+<div class="absolute inset-[6px] rounded-[48px] bg-black p-[8px] shadow-inner">
+<div class="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-full z-50 flex items-center justify-end px-3">
+<div class="w-2 h-2 rounded-full bg-white/5"></div>
+</div>
+<div class="relative w-full h-full rounded-[40px] overflow-hidden">
+<img alt="App Screenshot 1" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArlUS8RkMnUzYJILtWLeDYrXd2DME-NJktV0xjZ0i2xGm_6imA3dWNjTx4e9Ht2oV_7FSj00RbjjvKx1x2dW4OmnFQs3_tsnHrGjyiRexHsHiYJRkezO-XliNyhBndicc50t41rW8I_JpRoSoBhGi0EiPuBp63UwCw-ctSNTvoJ6bz8L7EN5mHg3Y6D1tjGWMJ0nE2A0fKanRBfoVZlqg168hxjdBxTcoVA20spBdtCiBRsuOdzMB94rqzXqh3S9D6PiBNE465w_8">
+<div class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/10 via-transparent to-white/5 z-10 opacity-40"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-xl reveal-on-scroll is-visible">
+<div class="space-y-md">
+<h2 class="font-display-lg text-headline-md md:text-display-lg-mobile leading-tight">Train With Real Experts.</h2>
+<p class="font-body-lg text-text-muted">No more guesswork. Connect with certified professionals who understand your unique physiological needs.</p>
+</div>
+<ul class="space-y-md">
+<li class="stagger-item flex items-center gap-md font-body-md text-text-primary">
+<span class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary"><span class="material-symbols-outlined">verified</span></span>
+                            Verified coaches with proven track records
+                        </li>
+<li class="stagger-item flex items-center gap-md font-body-md text-text-primary">
+<span class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary"><span class="material-symbols-outlined">psychology</span></span>
+                            Personalized guidance tailored to your goals
+                        </li>
+<li class="stagger-item flex items-center gap-md font-body-md text-text-primary">
+<span class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary"><span class="material-symbols-outlined">recommend</span></span>
+                            Expert recommendations for every workout
+                        </li>
+<li class="stagger-item flex items-center gap-md font-body-md text-text-primary">
+<span class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary"><span class="material-symbols-outlined">forum</span></span>
+                            Direct one-on-one support anytime
+                        </li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Feature 2: Form AI (Text Left) -->
+<section class="py-3xl bg-surface-container-lowest/30">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="grid lg:grid-cols-2 gap-2xl items-center">
+<div class="order-2 lg:order-1 space-y-xl reveal-on-scroll is-visible">
+<div class="space-y-md">
+<h2 class="font-display-lg text-headline-md md:text-display-lg-mobile leading-tight">AI That Corrects Your Form.</h2>
+<p class="font-body-lg text-text-muted">Our proprietary vision engine monitors your movement through your camera to ensure every rep is perfect.</p>
+</div>
+<ul class="space-y-md">
+<li class="stagger-item flex items-center gap-md font-body-md text-text-primary">
+<span class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary"><span class="material-symbols-outlined">visibility</span></span>
+                            Real-time posture analysis &amp; feedback
+                        </li>
+<li class="stagger-item flex items-center gap-md font-body-md text-text-primary">
+<span class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary"><span class="material-symbols-outlined">auto_fix_high</span></span>
+                            Smart form correction cues
+                        </li>
+<li class="stagger-item flex items-center gap-md font-body-md text-text-primary">
+<span class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary"><span class="material-symbols-outlined">health_and_safety</span></span>
+                            Active injury prevention monitoring
+                        </li>
+<li class="stagger-item flex items-center gap-md font-body-md text-text-primary">
+<span class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary"><span class="material-symbols-outlined">trending_up</span></span>
+                            Optimize performance through mechanics
+                        </li>
+</ul>
+</div>
+<div class="order-1 lg:order-2 flex justify-center lg:justify-end reveal-on-scroll is-visible">
+<div class="w-[320px] h-[640px] rounded-[55px] bg-surface-container-highest border-[2px] border-outline-variant/50 shadow-2xl relative overflow-hidden ring-1 ring-black/20">
+<div class="absolute -left-[3px] top-24 w-[3px] h-8 bg-outline-variant rounded-l-sm"></div>
+<div class="absolute -left-[3px] top-36 w-[3px] h-12 bg-outline-variant rounded-l-sm"></div>
+<div class="absolute -left-[3px] top-52 w-[3px] h-12 bg-outline-variant rounded-l-sm"></div>
+<div class="absolute -right-[3px] top-40 w-[3px] h-20 bg-outline-variant rounded-r-sm"></div>
+<div class="absolute inset-[6px] rounded-[48px] bg-black p-[8px] shadow-inner">
+<div class="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-full z-50 flex items-center justify-end px-3">
+<div class="w-2 h-2 rounded-full bg-white/5"></div>
+</div>
+<div class="relative w-full h-full rounded-[40px] overflow-hidden">
+<div class="scanning-line"></div>
+<div class="absolute inset-0 bg-primary/5 animate-pulse pointer-events-none"></div>
+<img alt="AI Form Analysis Mockup" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9vk2yuPwITwvSrjwgcDTlCdObjUN0S3MA9C-SMMYh14p1CkHgh_BawoRsG_1mYHBxlqMy7Hi07V16RSMZCQog6twQr7xUuJll50gKXXGFhBVTiZPPjTSNTF1adT-O8P35iTIy684UP3n_dSjW4s_-eHfgh-qmRoaBU4SxSe67VLT91QseMuE6eqOMgJIixVJBHcLGcq54SD3ieN2tPWqMOyEbqr7PgvLywOB6J9BLG6Laz-j5dX5Iz05Ze90UG42Au9S4PbvXyrc">
+<div class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/10 via-transparent to-white/5 z-10 opacity-40"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Feature 3: Challenges (Phone Left) -->
+<section class="py-3xl">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="grid lg:grid-cols-2 gap-2xl items-center">
+<div class="flex justify-center lg:justify-start reveal-on-scroll is-visible">
+<div class="w-[320px] h-[640px] rounded-[55px] bg-surface-container-highest border-[2px] border-outline-variant/50 shadow-2xl relative ring-1 ring-black/20">
+<div class="absolute -left-[3px] top-24 w-[3px] h-8 bg-outline-variant rounded-l-sm"></div>
+<div class="absolute -left-[3px] top-36 w-[3px] h-12 bg-outline-variant rounded-l-sm"></div>
+<div class="absolute -left-[3px] top-52 w-[3px] h-12 bg-outline-variant rounded-l-sm"></div>
+<div class="absolute -right-[3px] top-40 w-[3px] h-20 bg-outline-variant rounded-r-sm"></div>
+<div class="absolute inset-[6px] rounded-[48px] bg-black p-[8px] shadow-inner">
+<div class="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-full z-50 flex items-center justify-end px-3">
+<div class="w-2 h-2 rounded-full bg-white/5"></div>
+</div>
+<div class="relative w-full h-full rounded-[40px] overflow-hidden">
+<img alt="Challenges Mockup" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBzP8bH4SxO9tBLpXzCMy-idJX4ehe4Sj-C4tdSV1f9QKcBzZbqdllCIOsEJ6hsQXU4W3xRy27T5GKCdgbEpg4K5efMgJXyvfLSEQX_Brs5oGeMaxFF-ajLpl3SvU3taDNvjg2G-v3fBLjoZOy1fG03vGC3rxphlo0kQdUGhmlDPGIVQ1EUlv85gqZwB9QghlCHgk-3b7xIy9oeA9m1r5yGMhZupamFjSseyGbjvw7-sXljp4EtMbmCDciL5gK3GDhIu7flLmuqrQ">
+<div class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/10 via-transparent to-white/5 z-10 opacity-40"></div>
+</div>
+</div>
+<div class="absolute bottom-12 right-[-20px] glass-panel p-md rounded-xl animate-bounce" style="animation-duration: 3s;">
+<span class="material-symbols-outlined text-yellow-400 text-4xl" data-weight="fill">military_tech</span>
+</div>
+</div>
+</div>
+<div class="space-y-xl reveal-on-scroll is-visible">
+<div class="space-y-md">
+<h2 class="font-display-lg text-headline-md md:text-display-lg-mobile leading-tight">Stay Consistent Through Challenges.</h2>
+<p class="font-body-lg text-text-muted">Turn consistency into a game with community challenges and personal milestones.</p>
+</div>
+<ul class="space-y-md">
+<li class="stagger-item flex flex-col gap-sm">
+<div class="flex items-center gap-md font-body-md text-text-primary">
+<span class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary"><span class="material-symbols-outlined">calendar_today</span></span>
+                                Daily challenges to keep you moving
+                            </div>
+<div class="ml-14 w-48 h-1.5 bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-3/4 rounded-full animate-[progress_2s_ease-out_forwards]"></div>
+</div>
+</li>
+<li class="stagger-item flex items-center gap-md font-body-md text-text-primary">
+<span class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary"><span class="material-symbols-outlined">query_stats</span></span>
+                            In-depth progress tracking
+                        </li>
+<li class="stagger-item flex items-center gap-md font-body-md text-text-primary">
+<span class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary"><span class="material-symbols-outlined">emoji_events</span></span>
+                            Tiered achievement &amp; badge system
+                        </li>
+<li class="stagger-item flex items-center gap-md font-body-md text-text-primary">
+<span class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary"><span class="material-symbols-outlined">repeat</span></span>
+                            Sustainable habit building framework
+                        </li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Feature 4: Exercise Library (Text Left) -->
+<section class="py-3xl bg-surface-container-lowest/30">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="grid lg:grid-cols-2 gap-2xl items-center">
+<div class="order-2 lg:order-1 space-y-xl reveal-on-scroll is-visible">
+<div class="space-y-md">
+<h2 class="font-display-lg text-headline-md md:text-display-lg-mobile leading-tight">Your Complete Exercise Library.</h2>
+<p class="font-body-lg text-text-muted">Access high-definition video demonstrations for every movement imaginable, categorized for easy browsing.</p>
+</div>
+<ul class="space-y-md">
+<li class="stagger-item group flex items-center gap-md font-body-md text-text-primary cursor-pointer hover:text-primary transition-colors">
+<span class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform"><span class="material-symbols-outlined">library_books</span></span>
+                            Hundreds of expertly curated exercises
+                        </li>
+<li class="stagger-item flex items-center gap-md font-body-md text-text-primary">
+<span class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary"><span class="material-symbols-outlined">search</span></span>
+                            Instant search with predictive filters
+                        </li>
+<li class="stagger-item flex items-center gap-md font-body-md text-text-primary">
+<span class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary"><span class="material-symbols-outlined">filter_list</span></span>
+                            Filter by equipment, muscle group, or level
+                        </li>
+<li class="stagger-item flex items-center gap-md font-body-md text-text-primary">
+<span class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary"><span class="material-symbols-outlined">school</span></span>
+                            Step-by-step guided learning paths
+                        </li>
+</ul>
+</div>
+<div class="order-1 lg:order-2 flex justify-center lg:justify-end reveal-on-scroll is-visible">
+<div class="w-[320px] h-[640px] rounded-[55px] bg-surface-container-highest border-[2px] border-outline-variant/50 shadow-2xl relative group ring-1 ring-black/20">
+<div class="absolute -left-[3px] top-24 w-[3px] h-8 bg-outline-variant rounded-l-sm"></div>
+<div class="absolute -left-[3px] top-36 w-[3px] h-12 bg-outline-variant rounded-l-sm"></div>
+<div class="absolute -left-[3px] top-52 w-[3px] h-12 bg-outline-variant rounded-l-sm"></div>
+<div class="absolute -right-[3px] top-40 w-[3px] h-20 bg-outline-variant rounded-r-sm"></div>
+<div class="absolute inset-[6px] rounded-[48px] bg-black p-[8px] shadow-inner">
+<div class="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-full z-50 flex items-center justify-end px-3">
+<div class="w-2 h-2 rounded-full bg-white/5"></div>
+</div>
+<div class="relative w-full h-full rounded-[40px] overflow-hidden">
+<div class="absolute top-20 left-1/2 -translate-x-1/2 w-3/4 glass-panel p-sm rounded-lg flex items-center gap-sm z-20">
+<span class="material-symbols-outlined text-sm">search</span>
+<span class="font-label-sm text-white/50">Deadlift technique...</span>
+</div>
+<img alt="Library Mockup" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9Hh_CG-j9BKlQLlzqOGf9McvYwn14a50c9pLaDJUh17n8sr_o4lL0eKBJCkAQkARza8ImDyKBfzRNuFssXaNIEW-Zg871PkcGWkCH1j2RcXDaLPFj4NoL5bEwJqEj9wn0G4lgCZo0bNOIrqIqQF035OF0pXR8x7mPsTOgA_wDrW23sUurm7On8LyRBUqxBHU91ndaqF_jmtN352YLExBYHWus6ImerMip81r5YboGAqRC1bNdHfHAq526RWx9ZzF-i5gSkS5LT1M">
+<div class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/10 via-transparent to-white/5 z-10 opacity-40"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA Section -->
+<section class="py-3xl relative overflow-hidden">
+<div class="absolute inset-0 bg-primary/5 pointer-events-none"></div>
+<div class="max-w-4xl mx-auto px-gutter text-center reveal-on-scroll space-y-xl py-2xl is-visible">
+<h2 class="font-display-lg text-display-lg-mobile md:text-headline-md leading-tight">Ready To Experience FitJone?</h2>
+<p class="font-body-lg text-text-muted">Join the elite training revolution and transform your body with the world's most advanced fitness companion.</p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-lg pt-md">
+<button data-download class="w-full sm:w-auto px-3xl py-lg bg-primary-container text-on-primary-container rounded-xl font-label-md uppercase tracking-widest hover:scale-105 transition-all ambient-glow">
+                    Download APK
+                </button>
+<button onclick="window.location.href='index.html'" class="w-full sm:w-auto px-3xl py-lg glass-panel text-on-surface rounded-xl font-label-md uppercase tracking-widest hover:bg-white/10 transition-all">
+                    Back To Home
+                </button>
+</div>
+</div>
+</section>
+</main>
+<footer class="py-2xl border-t border-white/5 mt-3xl">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="flex flex-col md:flex-row justify-between items-center gap-xl">
+<div class="space-y-sm text-center md:text-left">
+<a class="font-display-lg text-headline-sm text-primary" href="#">FitJone</a>
+<p class="font-body-md text-text-muted">© 2024 FitJone. Precision performance AI fitness companion.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-lg">
+<a class="font-body-md text-text-muted hover:text-primary transition-colors" href="index.html">Home</a>
+<a class="font-body-md text-primary" href="features.html">Features</a>
+<a class="font-body-md text-text-muted hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-md text-text-muted hover:text-primary transition-colors" href="#">Terms</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Scroll Reveal Logic
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px'
+        };
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => revealObserver.observe(el));
+
+        // Parallax & Tilt Effect
+        document.addEventListener('mousemove', (e) => {
+            const mockups = document.querySelectorAll('.phone-mockup');
+            const mouseX = e.clientX / window.innerWidth - 0.5;
+            const mouseY = e.clientY / window.innerHeight - 0.5;
+
+            mockups.forEach(mockup => {
+                const rect = mockup.getBoundingClientRect();
+                const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+                
+                if (isVisible) {
+                    // Subtle tilt based on mouse position
+                    const rotateY = mouseX * 20;
+                    const rotateX = mouseY * -20;
+                    // Preserve original base rotation (5deg / -5deg)
+                    const baseRotateY = mockup.style.transform.includes('rotateY(5deg)') ? 5 : -5;
+                    mockup.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${baseRotateY + rotateY}deg)`;
+                }
+            });
+        });
+
+        // Background Mouse Follow
+        const main = document.querySelector('main');
+        main.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            main.style.setProperty('--mouse-x', `${x}px`);
+            main.style.setProperty('--mouse-y', `${y}px`);
+        });
+    });
+</script>
+<style>
+    @keyframes progress {
+        from { width: 0; }
+        to { width: 75%; }
+    }
+</style>
+<script>
+  // ===== FitJone API Integration =====
+  const FITJONE_API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+    ? 'http://localhost:5000' 
+    : 'https://fitjone-api.onrender.com';
+
+  // Download handler with loading states
+  function handleDownload(buttonEl) {
+    const originalText = buttonEl.textContent;
+    buttonEl.textContent = 'PREPARING DOWNLOAD...';
+    buttonEl.disabled = true;
+    buttonEl.style.opacity = '0.7';
+
+    // Redirect to download endpoint (302 redirect to APK)
+    setTimeout(() => {
+      buttonEl.textContent = 'DOWNLOADING...';
+      window.location.href = FITJONE_API_URL + '/api/download';
+      
+      // Reset button after redirect
+      setTimeout(() => {
+        buttonEl.textContent = originalText;
+        buttonEl.disabled = false;
+        buttonEl.style.opacity = '1';
+      }, 3000);
+    }, 800);
+  }
+
+  // Attach click handlers to all download buttons
+  document.addEventListener('DOMContentLoaded', () => {
+    const downloadBtns = document.querySelectorAll('[data-download]');
+    downloadBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        handleDownload(btn);
+      });
+    });
+
+    // Fetch and display version info
+    fetchVersionInfo();
+    fetchDownloadCount();
+  });
+
+  async function fetchVersionInfo() {
+    try {
+      const res = await fetch(FITJONE_API_URL + '/api/version');
+      if (!res.ok) return;
+      const data = await res.json();
+      
+      const versionInfo = document.getElementById('version-info');
+      const versionText = document.getElementById('version-text');
+      const sizeText = document.getElementById('size-text');
+      const dateText = document.getElementById('date-text');
+      
+      if (versionInfo && data.version) {
+        versionText.textContent = 'v' + data.version;
+        sizeText.textContent = data.fileSize || 'N/A';
+        dateText.textContent = data.releaseDate || 'N/A';
+        versionInfo.style.display = 'flex';
+      }
+
+      // Check Update Banner
+      if (data.version) {
+        const dismissedKey = 'fitjone-dismissed-' + data.version;
+        if (!localStorage.getItem(dismissedKey)) {
+          const banner = document.getElementById('update-banner');
+          document.getElementById('banner-version').textContent = 'v' + data.version;
+          document.getElementById('banner-size').textContent = data.fileSize || 'N/A';
+          
+          banner.classList.remove('hidden');
+          banner.classList.add('fade-in-up');
+
+          document.getElementById('close-banner-btn').addEventListener('click', () => {
+            localStorage.setItem(dismissedKey, 'true');
+            banner.style.transition = 'all 0.4s ease';
+            banner.style.opacity = '0';
+            banner.style.transform = 'translateY(-100%)';
+            setTimeout(() => banner.classList.add('hidden'), 400);
+          });
+        }
+      }
+    } catch (e) {
+      console.log('Version info unavailable');
+    }
+  }
+
+  async function fetchDownloadCount() {
+    try {
+      const res = await fetch(FITJONE_API_URL + '/api/download-count');
+      if (!res.ok) return;
+      const data = await res.json();
+      
+      const countEl = document.getElementById('download-count');
+      const countText = document.getElementById('count-text');
+      
+      if (countEl && data.totalDownloads > 0) {
+        countText.textContent = data.totalDownloads.toLocaleString();
+        countEl.style.display = 'inline-flex';
+      }
+    } catch (e) {
+      console.log('Download count unavailable');
+    }
+  }
+</script>
+</body></html>
