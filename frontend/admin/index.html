@@ -702,16 +702,38 @@
     }
 
     // ── Login ──
-    loginForm.addEventListener('submit', (e) => {
+    loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const key = adminKeyInput.value.trim();
       if (!key) {
         showMessage(loginError, 'Please enter an admin key.');
         return;
       }
-      localStorage.setItem(STORAGE_KEY, key);
-      loginError.classList.add('hidden');
-      showDashboard();
+      
+      const submitBtn = loginForm.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<span class="material-symbols-outlined animate-spin" style="font-size: 18px;">autorenew</span>';
+      submitBtn.disabled = true;
+
+      try {
+        // Validate the key before logging in
+        const res = await fetch(FITJONE_API_URL + '/api/admin/analytics', {
+          headers: { 'Content-Type': 'application/json', 'x-admin-key': key }
+        });
+        
+        if (res.ok) {
+          localStorage.setItem(STORAGE_KEY, key);
+          loginError.classList.add('hidden');
+          showDashboard();
+        } else {
+          showMessage(loginError, 'Please enter the right password.');
+        }
+      } catch (err) {
+        showMessage(loginError, 'Network error. Please try again.');
+      } finally {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+      }
     });
 
     logoutBtn.addEventListener('click', () => {
