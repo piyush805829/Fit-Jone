@@ -1100,7 +1100,8 @@
           }, 1500);
         } else {
           const errMsg = response.error || response.message || 'Upload failed';
-          showMessage(versionFormMsg, errMsg);
+          const details = response.details ? ` (${response.details})` : '';
+          showMessage(versionFormMsg, errMsg + details);
         }
       };
 
