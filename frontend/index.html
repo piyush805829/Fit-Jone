@@ -369,14 +369,6 @@
             reveals.forEach(reveal => {
                 observer.observe(reveal);
             });
-            
-            // Parallax effect on scroll
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                window.addEventListener('scroll', () => {
-                    const scrolled = window.pageYOffset;
-                    document.body.style.backgroundPositionY = -(scrolled * 0.3) + 'px';
-                });
-            }
         });
     </script>
 <script>
