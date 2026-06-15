@@ -574,6 +574,22 @@
         // Query all parallax targets once for performance
         const parallaxElements = document.querySelectorAll('[data-parallax-speed]');
 
+        // Recalculate layout metrics on resize or orientation change
+        window.addEventListener('resize', () => {
+            parallaxElements.forEach(el => {
+                delete el.dataset.pageY;
+                delete el.dataset.elementHeight;
+            });
+        });
+
+        // Force recalculation after all assets/images are fully loaded
+        window.addEventListener('load', () => {
+            parallaxElements.forEach(el => {
+                delete el.dataset.pageY;
+                delete el.dataset.elementHeight;
+            });
+        });
+
         function updateParallax() {
             // Lerp scroll position for high-performance organic momentum
             if (Math.abs(targetScrollY - currentScrollY) > 0.05) {
@@ -583,15 +599,44 @@
             }
 
             parallaxElements.forEach(el => {
-                let speed = parseFloat(el.dataset.parallaxSpeed) || 0;
+                const speed = parseFloat(el.dataset.parallaxSpeed) || 0;
                 const isMobile = window.innerWidth < 1024;
 
-                // Disable vertical parallax shift for layout elements on mobile to prevent overlapping
-                if (isMobile && !el.classList.contains('parallax-bg-blob')) {
-                    speed = 0;
-                }
+                let scrollOffset = 0;
 
-                const scrollOffset = currentScrollY * speed;
+                if (el.classList.contains('parallax-bg-blob')) {
+                    // Background blobs use simple absolute scroll
+                    scrollOffset = currentScrollY * speed;
+                } else {
+                    // Structural layout elements use viewport-relative scroll
+                    if (!el.dataset.pageY) {
+                        const rect = el.getBoundingClientRect();
+                        el.dataset.pageY = rect.top + window.pageYOffset;
+                        el.dataset.elementHeight = rect.height;
+                    }
+
+                    const pageY = parseFloat(el.dataset.pageY);
+                    const elementHeight = parseFloat(el.dataset.elementHeight);
+                    
+                    // Center of the element
+                    const elementCenter = pageY + elementHeight / 2;
+                    // Center of the viewport
+                    const viewportCenter = currentScrollY + window.innerHeight / 2;
+                    
+                    // Distance from viewport center
+                    const diff = elementCenter - viewportCenter;
+
+                    // Reduce speed on mobile to make the effect subtle and prevent large shifts
+                    const currentSpeed = isMobile ? speed * 0.35 : speed;
+                    scrollOffset = diff * currentSpeed;
+
+                    // Strictly limit the offset on mobile to completely prevent overlapping
+                    if (isMobile) {
+                        const maxMobileOffset = 15; // 15px max shift is safe and subtle
+                        if (scrollOffset > maxMobileOffset) scrollOffset = maxMobileOffset;
+                        if (scrollOffset < -maxMobileOffset) scrollOffset = -maxMobileOffset;
+                    }
+                }
 
                 if (el.classList.contains('phone-mockup-target')) {
                     // Check visibility to save GPU resources
