@@ -3,6 +3,10 @@ const env = require('./env');
 
 const connectDB = async () => {
   try {
+    const dns = require('dns');
+    if (env.nodeEnv === 'development') {
+      dns.setServers(['8.8.8.8', '1.1.1.1']);
+    }
     mongoose.set('strictQuery', false);
 
     const conn = await mongoose.connect(env.mongoUri, {

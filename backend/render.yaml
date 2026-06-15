@@ -16,3 +16,9 @@ services:
         sync: false
       - key: FRONTEND_URL
         sync: false
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: GITHUB_OWNER
+        sync: false
+      - key: GITHUB_REPO
+        sync: false
