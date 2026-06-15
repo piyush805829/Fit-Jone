@@ -583,7 +583,14 @@
             }
 
             parallaxElements.forEach(el => {
-                const speed = parseFloat(el.dataset.parallaxSpeed) || 0;
+                let speed = parseFloat(el.dataset.parallaxSpeed) || 0;
+                const isMobile = window.innerWidth < 1024;
+
+                // Disable vertical parallax shift for layout elements on mobile to prevent overlapping
+                if (isMobile && !el.classList.contains('parallax-bg-blob')) {
+                    speed = 0;
+                }
+
                 const scrollOffset = currentScrollY * speed;
 
                 if (el.classList.contains('phone-mockup-target')) {
@@ -593,9 +600,12 @@
                     if (isVisible) {
                         const isLeftPhone = el.closest('.justify-start');
                         const baseRotateY = isLeftPhone ? 3 : -3;
-                        const rotateY = mouseX * 15;
-                        const rotateX = mouseY * -15;
-                        el.style.transform = `perspective(1000px) translate3d(0, ${scrollOffset}px, 0) rotateX(${rotateX}deg) rotateY(${baseRotateY + rotateY}deg)`;
+                        
+                        // Disable 3D tilt on mobile for a cleaner, flatter look
+                        const rotateX = isMobile ? 0 : mouseY * -15;
+                        const rotateY = isMobile ? 0 : (baseRotateY + mouseX * 15);
+                        
+                        el.style.transform = `perspective(1000px) translate3d(0, ${scrollOffset}px, 0) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
                     }
                 } else {
                     el.style.transform = `translate3d(0, ${scrollOffset}px, 0)`;
