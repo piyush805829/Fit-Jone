@@ -524,8 +524,10 @@ class InteractiveBackground {
 
         this.ctx = this.canvas.getContext('2d');
         this.particles = [];
-        this.mouse = { x: null, y: null, radius: 150 };
-
+        this.sparkles = [];
+        this.shockwaves = [];
+        
+        this.mouse = { x: null, y: null, radius: 180, lastX: null, lastY: null };
         this.prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         this.resize();
@@ -536,6 +538,7 @@ class InteractiveBackground {
             window.addEventListener('resize', () => this.resize());
             window.addEventListener('mousemove', (e) => this.handleMouseMove(e));
             window.addEventListener('mouseleave', () => this.handleMouseLeave());
+            window.addEventListener('mousedown', (e) => this.handleClick(e));
         } else {
             this.renderStatic();
         }
@@ -554,6 +557,12 @@ class InteractiveBackground {
     init() {
         this.particles = [];
         const count = Math.min(Math.floor((this.canvas.width * this.canvas.height) / 10000), 100);
+        const colors = [
+            'rgba(56, 189, 248, 0.45)',
+            'rgba(168, 85, 247, 0.35)',
+            'rgba(164, 201, 255, 0.3)',
+            'rgba(6, 182, 212, 0.4)'
+        ];
         for (let i = 0; i < count; i++) {
             this.particles.push({
                 x: Math.random() * this.canvas.width,
@@ -561,7 +570,7 @@ class InteractiveBackground {
                 vx: (Math.random() - 0.5) * 0.4,
                 vy: (Math.random() - 0.5) * 0.4,
                 size: Math.random() * 2 + 1,
-                color: Math.random() > 0.4 ? 'rgba(56, 189, 248, 0.35)' : 'rgba(164, 201, 255, 0.2)'
+                color: colors[Math.floor(Math.random() * colors.length)]
             });
         }
     }
@@ -569,11 +578,46 @@ class InteractiveBackground {
     handleMouseMove(e) {
         this.mouse.x = e.clientX;
         this.mouse.y = e.clientY;
+
+        if (this.mouse.lastX !== null && this.mouse.lastY !== null) {
+            const dist = Math.hypot(this.mouse.x - this.mouse.lastX, this.mouse.y - this.mouse.lastY);
+            if (dist > 5 && this.sparkles.length < 150) {
+                const count = Math.min(Math.floor(dist / 5), 5);
+                for (let i = 0; i < count; i++) {
+                    this.sparkles.push({
+                        x: this.mouse.x + (Math.random() - 0.5) * 10,
+                        y: this.mouse.y + (Math.random() - 0.5) * 10,
+                        vx: (Math.random() - 0.5) * 1.5,
+                        vy: (Math.random() - 0.5) * 1.5,
+                        size: Math.random() * 2 + 0.5,
+                        alpha: 1,
+                        decay: 0.015 + Math.random() * 0.015,
+                        color: Math.random() > 0.5 ? '#8ed5ff' : '#a855f7'
+                    });
+                }
+            }
+        }
+        this.mouse.lastX = this.mouse.x;
+        this.mouse.lastY = this.mouse.y;
     }
 
     handleMouseLeave() {
         this.mouse.x = null;
         this.mouse.y = null;
+        this.mouse.lastX = null;
+        this.mouse.lastY = null;
+    }
+
+    handleClick(e) {
+        this.shockwaves.push({
+            x: e.clientX,
+            y: e.clientY,
+            radius: 0,
+            maxRadius: 280,
+            speed: 4.5,
+            force: 8,
+            alpha: 1
+        });
     }
 
     renderStatic() {
@@ -596,10 +640,28 @@ class InteractiveBackground {
                 this.mouse.x, this.mouse.y, 0,
                 this.mouse.x, this.mouse.y, this.mouse.radius
             );
-            glow.addColorStop(0, 'rgba(56, 189, 248, 0.08)');
+            glow.addColorStop(0, 'rgba(56, 189, 248, 0.09)');
+            glow.addColorStop(0.5, 'rgba(168, 85, 247, 0.03)');
             glow.addColorStop(1, 'rgba(7, 17, 31, 0)');
             this.ctx.fillStyle = glow;
             this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        }
+
+        for (let i = this.shockwaves.length - 1; i >= 0; i--) {
+            const sw = this.shockwaves[i];
+            sw.radius += sw.speed;
+            sw.alpha = 1 - (sw.radius / sw.maxRadius);
+
+            if (sw.radius >= sw.maxRadius) {
+                this.shockwaves.splice(i, 1);
+                continue;
+            }
+
+            this.ctx.strokeStyle = `rgba(56, 189, 248, ${sw.alpha * 0.25})`;
+            this.ctx.lineWidth = 1.5;
+            this.ctx.beginPath();
+            this.ctx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2);
+            this.ctx.stroke();
         }
 
         for (let i = 0; i < this.particles.length; i++) {
@@ -628,17 +690,34 @@ class InteractiveBackground {
                 const distance = Math.sqrt(dx * dx + dy * dy);
 
                 if (distance < this.mouse.radius) {
-                    const opacity = (1 - distance / this.mouse.radius) * 0.2;
-                    this.ctx.strokeStyle = `rgba(56, 189, 248, ${opacity})`;
-                    this.ctx.lineWidth = 1;
+                    const opacity = (1 - distance / this.mouse.radius) * 0.18;
+                    this.ctx.strokeStyle = `rgba(168, 85, 247, ${opacity})`;
+                    this.ctx.lineWidth = 0.8;
                     this.ctx.beginPath();
                     this.ctx.moveTo(p1.x, p1.y);
                     this.ctx.lineTo(this.mouse.x, this.mouse.y);
                     this.ctx.stroke();
 
                     const force = (this.mouse.radius - distance) / this.mouse.radius;
-                    p1.x += (dx / distance) * force * 0.8;
-                    p1.y += (dy / distance) * force * 0.8;
+                    const angle = Math.atan2(dy, dx);
+                    p1.x -= Math.cos(angle) * force * 0.45;
+                    p1.y -= Math.sin(angle) * force * 0.45;
+                    
+                    p1.x += Math.sin(angle) * force * 0.65;
+                    p1.y -= Math.cos(angle) * force * 0.65;
+                }
+            }
+
+            for (const sw of this.shockwaves) {
+                const dx = p1.x - sw.x;
+                const dy = p1.y - sw.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (Math.abs(distance - sw.radius) < 20) {
+                    const angle = Math.atan2(dy, dx);
+                    const pushForce = sw.force * sw.alpha;
+                    p1.x += Math.cos(angle) * pushForce;
+                    p1.y += Math.sin(angle) * pushForce;
                 }
             }
 
@@ -649,10 +728,32 @@ class InteractiveBackground {
             if (p1.y < 0 || p1.y > this.canvas.height) p1.vy = -p1.vy;
 
             this.ctx.fillStyle = p1.color;
+            this.ctx.shadowBlur = 6;
+            this.ctx.shadowColor = p1.color.includes('168') ? '#a855f7' : '#38bdf8';
             this.ctx.beginPath();
             this.ctx.arc(p1.x, p1.y, p1.size, 0, Math.PI * 2);
             this.ctx.fill();
+            this.ctx.shadowBlur = 0;
         }
+
+        for (let i = this.sparkles.length - 1; i >= 0; i--) {
+            const s = this.sparkles[i];
+            s.x += s.vx;
+            s.y += s.vy;
+            s.alpha -= s.decay;
+
+            if (s.alpha <= 0) {
+                this.sparkles.splice(i, 1);
+                continue;
+            }
+
+            this.ctx.fillStyle = s.color;
+            this.ctx.globalAlpha = s.alpha;
+            this.ctx.beginPath();
+            this.ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+            this.ctx.fill();
+        }
+        this.ctx.globalAlpha = 1.0;
 
         requestAnimationFrame(() => this.animate());
     }
