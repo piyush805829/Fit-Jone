@@ -1,32 +1,83 @@
 const { validationResult } = require('express-validator');
 const ApkVersion = require('../models/ApkVersion');
 const analyticsService = require('../services/analyticsService');
+const r2Service = require('../services/r2Service');
 
 /**
- * Create a new APK version and set it as the latest.
+ * Upload a new APK version and clean up the old one upon success.
  */
-const createVersion = async (req, res, next) => {
+const uploadVersion = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { versionName, versionCode, apkUrl, backupApkUrl, fileSize, releaseNotes } = req.body;
+    if (!req.file) {
+      return res.status(400).json({ error: 'APK file is required' });
+    }
 
-    const newVersion = await ApkVersion.create({
-      versionName,
-      versionCode,
-      apkUrl,
-      backupApkUrl,
-      fileSize,
-      releaseNotes,
-    });
+    const { versionName, versionCode, releaseNotes } = req.body;
 
-    await ApkVersion.setLatest(newVersion._id);
+    // Detect file size and format it
+    const fileSizeStr = r2Service.formatFileSize(req.file.size);
+
+    // Step 1: Find existing version document
+    const oldVersion = await ApkVersion.findOne({});
+
+    // Step 2: Generate unique object name
+    const timestamp = Math.floor(Date.now() / 1000);
+    const objectKey = `FitJone-v${versionName}-${timestamp}.apk`;
+
+    // Step 3: Upload the new APK to Cloudflare R2
+    let apkUrl;
+    try {
+      apkUrl = await r2Service.uploadAPK(req.file.buffer, objectKey);
+    } catch (err) {
+      console.error('Cloudflare R2 Upload Error:', err);
+      return res.status(500).json({ error: 'Failed to upload APK to Cloudflare R2', details: err.message });
+    }
+
+    // Step 4 & 6: Create the new version document in MongoDB
+    let newVersion;
+    try {
+      newVersion = await ApkVersion.create({
+        versionName,
+        versionCode: parseInt(versionCode, 10),
+        apkUrl,
+        objectKey,
+        fileSize: fileSizeStr,
+        releaseNotes: releaseNotes || '',
+      });
+    } catch (err) {
+      // If DB creation fails, try to delete the newly uploaded APK to avoid orphan files in R2
+      try {
+        await r2Service.deleteAPK(objectKey);
+      } catch (delErr) {
+        console.error('Failed to clean up uploaded APK after DB error:', delErr);
+      }
+      return res.status(500).json({ error: 'Failed to save version metadata to database', details: err.message });
+    }
+
+    // Step 5: Delete old version ONLY after new version successfully created
+    if (oldVersion) {
+      if (oldVersion.objectKey) {
+        try {
+          await r2Service.deleteAPK(oldVersion.objectKey);
+        } catch (err) {
+          console.error(`Failed to delete old APK (${oldVersion.objectKey}) from R2:`, err);
+          // Do not fail the request if R2 delete fails, to keep DB synced
+        }
+      }
+      try {
+        await ApkVersion.deleteOne({ _id: oldVersion._id });
+      } catch (err) {
+        console.error('Failed to delete old version metadata from DB:', err);
+      }
+    }
 
     return res.status(201).json({
-      message: 'Version created successfully',
+      message: 'Version uploaded successfully',
       version: newVersion,
     });
   } catch (error) {
@@ -47,43 +98,7 @@ const getAllVersions = async (req, res, next) => {
 };
 
 /**
- * Update an existing APK version by ID.
- * If isLatest is set to true, updates the latest flag accordingly.
- */
-const updateVersion = async (req, res, next) => {
-  try {
-    const version = await ApkVersion.findById(req.params.id);
-
-    if (!version) {
-      return res.status(404).json({ error: 'Version not found' });
-    }
-
-    // Update only provided fields
-    const allowedFields = ['versionName', 'versionCode', 'apkUrl', 'backupApkUrl', 'fileSize', 'releaseNotes'];
-    allowedFields.forEach((field) => {
-      if (req.body[field] !== undefined) {
-        version[field] = req.body[field];
-      }
-    });
-
-    if (req.body.isLatest === true) {
-      await ApkVersion.setLatest(version._id);
-    }
-
-    await version.save();
-
-    return res.status(200).json({
-      message: 'Version updated',
-      version,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-/**
  * Delete an APK version by ID.
- * If it was the latest, promotes the next most recent version.
  */
 const deleteVersion = async (req, res, next) => {
   try {
@@ -93,19 +108,20 @@ const deleteVersion = async (req, res, next) => {
       return res.status(404).json({ error: 'Version not found' });
     }
 
-    // If deleting the latest version, promote the next most recent
-    if (version.isLatest) {
-      const nextVersion = await ApkVersion.findOne({ _id: { $ne: version._id } })
-        .sort({ createdAt: -1 });
-
-      if (nextVersion) {
-        await ApkVersion.setLatest(nextVersion._id);
+    // Read objectKey and delete APK from R2
+    if (version.objectKey) {
+      try {
+        await r2Service.deleteAPK(version.objectKey);
+      } catch (err) {
+        console.error(`Failed to delete APK file (${version.objectKey}) from R2:`, err);
+        return res.status(500).json({ error: 'Failed to delete APK from storage', details: err.message });
       }
     }
 
+    // Delete MongoDB document
     await version.deleteOne();
 
-    return res.status(200).json({ message: 'Version deleted' });
+    return res.status(200).json({ message: 'Version deleted successfully' });
   } catch (error) {
     next(error);
   }
@@ -160,9 +176,8 @@ const verifyUrl = async (req, res, next) => {
 };
 
 module.exports = {
-  createVersion,
+  uploadVersion,
   getAllVersions,
-  updateVersion,
   deleteVersion,
   getAnalytics,
   verifyUrl,

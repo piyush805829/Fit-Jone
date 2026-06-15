@@ -3,7 +3,7 @@ const downloadService = require('../services/downloadService');
 
 /**
  * Download the latest APK.
- * Tracks the download event in the background and redirects to the APK URL.
+ * Redirects immediately to the R2 URL while logging analytics in the background.
  */
 const download = async (req, res, next) => {
   try {
@@ -16,28 +16,11 @@ const download = async (req, res, next) => {
       });
     }
 
-    // Fire and forget — don't delay the redirect
+    // Fire-and-forget analytics logging - never delay the download redirect
     downloadService.trackDownload(req, latestVersion);
 
-    let targetUrl = latestVersion.apkUrl;
-    if (latestVersion.backupApkUrl) {
-      try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 3000); // 3s timeout
-        const headRes = await fetch(latestVersion.apkUrl, { method: 'HEAD', signal: controller.signal });
-        clearTimeout(timeoutId);
-
-        // If 404 or server error, fallback to backup URL
-        if (headRes.status === 404 || headRes.status >= 500) {
-          targetUrl = latestVersion.backupApkUrl;
-        }
-      } catch (error) {
-        // Network error or timeout
-        targetUrl = latestVersion.backupApkUrl;
-      }
-    }
-
-    return res.redirect(302, targetUrl);
+    // 302 redirect immediately to the R2 APK URL
+    return res.redirect(latestVersion.apkUrl);
   } catch (error) {
     next(error);
   }

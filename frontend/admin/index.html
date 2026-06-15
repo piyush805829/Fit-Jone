@@ -502,11 +502,11 @@
           </div>
         </div>
 
-        <!-- Add Version Form -->
+        <!-- Add Version Form (with Drag and Drop APK) -->
         <div id="add-version-form" class="glass-panel rounded-xl p-6 mb-8 section-hidden fade-in">
           <h3 class="font-heading text-lg font-semibold text-white mb-5 flex items-center gap-2">
             <span class="material-symbols-outlined" style="color:var(--primary);font-size:20px;">upload_file</span>
-            Create New Version
+            Upload New APK Version
           </h3>
           <form id="version-form" class="space-y-4">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -519,22 +519,47 @@
                 <input type="number" id="v-code" class="input-field w-full rounded-lg px-4 py-2.5 text-sm" placeholder="e.g. 21" required />
               </div>
             </div>
+            
+            <!-- Drag and Drop Zone -->
             <div>
-              <label class="block text-xs font-mono font-semibold mb-2 uppercase tracking-wider" style="color:var(--text-muted);">Primary APK URL</label>
-              <input type="url" id="v-url" class="input-field w-full rounded-lg px-4 py-2.5 text-sm font-mono" placeholder="https://example.com/app.apk" required />
+              <label class="block text-xs font-mono font-semibold mb-2 uppercase tracking-wider" style="color:var(--text-muted);">APK File (Max 250MB)</label>
+              <div id="drop-zone" class="border border-dashed border-outline hover:border-primary rounded-xl p-8 text-center cursor-pointer transition-colors flex flex-col items-center justify-center gap-3" style="background:rgba(255,255,255,0.01);">
+                <input type="file" id="apk-file-input" accept=".apk,application/vnd.android.package-archive" class="hidden" />
+                <span class="material-symbols-outlined text-4xl" style="color:var(--text-muted);">cloud_upload</span>
+                <p class="text-sm font-semibold text-white">Drag & drop your APK here, or <span style="color:var(--primary);">browse</span></p>
+                <p class="text-xs" style="color:var(--text-muted);">Accepts only .apk files up to 250MB</p>
+              </div>
+              <!-- Selected File Info -->
+              <div id="selected-file-info" class="hidden flex items-center justify-between p-3 mt-2 rounded-lg" style="background:var(--surface-container);border:1px solid var(--border);">
+                <div class="flex items-center gap-3 truncate">
+                  <span class="material-symbols-outlined text-primary" style="font-size:24px;">android</span>
+                  <div class="truncate">
+                    <p id="selected-file-name" class="text-sm font-semibold text-white truncate"></p>
+                    <p id="selected-file-size" class="text-xs font-mono" style="color:var(--text-muted);"></p>
+                  </div>
+                </div>
+                <button type="button" id="remove-file-btn" class="text-xs hover:text-red-400 p-1 flex items-center cursor-pointer">
+                  <span class="material-symbols-outlined" style="font-size:18px;">close</span>
+                </button>
+              </div>
             </div>
-            <div>
-              <label class="block text-xs font-mono font-semibold mb-2 uppercase tracking-wider" style="color:var(--text-muted);">Backup APK URL (Optional)</label>
-              <input type="url" id="v-backup" class="input-field w-full rounded-lg px-4 py-2.5 text-sm font-mono" placeholder="https://fallback.com/app.apk" />
+
+            <!-- Upload Progress -->
+            <div id="upload-progress-container" class="hidden space-y-2">
+              <div class="flex justify-between text-xs font-mono" style="color:var(--text-muted);">
+                <span>Uploading APK…</span>
+                <span id="upload-progress-percentage">0%</span>
+              </div>
+              <div class="w-full bg-outline-variant/30 rounded-full h-2 overflow-hidden">
+                <div id="upload-progress-bar" class="h-full bg-gradient-to-r from-primary to-primary-light" style="width:0%;"></div>
+              </div>
             </div>
-            <div>
-              <label class="block text-xs font-mono font-semibold mb-2 uppercase tracking-wider" style="color:var(--text-muted);">File Size</label>
-              <input type="text" id="v-size" class="input-field w-full rounded-lg px-4 py-2.5 text-sm" placeholder="e.g. 24.5 MB" required />
-            </div>
+
             <div>
               <label class="block text-xs font-mono font-semibold mb-2 uppercase tracking-wider" style="color:var(--text-muted);">Release Notes</label>
               <textarea id="v-notes" rows="3" class="input-field w-full rounded-lg px-4 py-2.5 text-sm resize-none" placeholder="What's new in this version…" required></textarea>
             </div>
+            
             <div class="flex items-center gap-3 pt-2">
               <button type="submit" id="create-version-btn" class="btn-glow rounded-lg px-6 py-2.5 text-sm flex items-center gap-2 cursor-pointer">
                 <span class="material-symbols-outlined" style="font-size:18px;">rocket_launch</span>
@@ -600,6 +625,32 @@
         </div>
       </div>
 
+    </div>
+  </div>
+
+  <!-- ======================= DELETE MODAL ======================= -->
+  <div id="delete-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden fade-in">
+    <div class="glass-panel rounded-2xl p-6 max-w-md w-full relative">
+      <div class="flex items-center gap-3 mb-4 text-red-400">
+        <span class="material-symbols-outlined text-3xl">warning</span>
+        <h3 class="font-heading text-lg font-bold text-white">Permanently Delete Version?</h3>
+      </div>
+      <div class="text-sm space-y-3 mb-6" style="color:var(--text-muted);">
+        <p>Are you sure you want to permanently delete this version?</p>
+        <p class="font-medium text-white">This will remove:</p>
+        <ul class="list-disc pl-5 space-y-1">
+          <li>Version metadata from MongoDB</li>
+          <li>APK file from Cloudflare R2</li>
+        </ul>
+        <p class="text-red-400/95 font-semibold">This action cannot be undone.</p>
+      </div>
+      <div class="flex justify-end gap-3">
+        <button id="cancel-delete-btn" class="btn-outline rounded-lg px-4 py-2 text-sm cursor-pointer">Cancel</button>
+        <button id="confirm-delete-btn" class="btn-danger rounded-lg px-4 py-2 text-sm cursor-pointer bg-red-600 hover:bg-red-700 text-white font-semibold flex items-center gap-2">
+          <span class="material-symbols-outlined" style="font-size:16px;">delete_forever</span>
+          Delete Permanently
+        </button>
+      </div>
     </div>
   </div>
 
@@ -807,41 +858,37 @@
         const v = versionsData?.versions?.[0] || {};
         const cvContent = $('#current-version-content');
         cvContent.classList.remove('loading-pulse');
-        cvContent.innerHTML = `
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <p class="text-xs font-mono uppercase tracking-wider mb-1" style="color:var(--text-muted);">Version</p>
-              <p class="font-heading text-xl font-bold text-white">${v.versionName || '—'} <span class="text-sm font-mono" style="color:var(--text-muted);">(${v.versionCode || '—'})</span></p>
-            </div>
-            <div>
-              <p class="text-xs font-mono uppercase tracking-wider mb-1" style="color:var(--text-muted);">File Size</p>
-              <p class="text-white font-mono">${v.fileSize || '—'}</p>
-            </div>
-            <div class="sm:col-span-2">
-              <p class="text-xs font-mono uppercase tracking-wider mb-1" style="color:var(--text-muted);">Release Notes</p>
-              <p class="text-sm" style="color:var(--text-muted);">${v.releaseNotes || 'No release notes.'}</p>
-            </div>
-            <div class="sm:col-span-2">
-              <p class="text-xs font-mono uppercase tracking-wider mb-1" style="color:var(--text-muted);">Primary APK URL</p>
-              <div class="flex flex-wrap items-center gap-2">
-                <code class="text-xs font-mono px-3 py-1.5 rounded-lg" style="background:var(--surface-container);color:var(--primary-light);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block;">${truncateUrl(v.apkUrl, 60)}</code>
-                <span class="url-status badge-admin text-[10px]" data-url="${v.apkUrl}">Checking...</span>
+        if (!v.versionName) {
+          cvContent.innerHTML = '<p class="text-sm" style="color:var(--text-muted);">No version uploaded yet.</p>';
+        } else {
+          cvContent.innerHTML = `
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <p class="text-xs font-mono uppercase tracking-wider mb-1" style="color:var(--text-muted);">Version</p>
+                <p class="font-heading text-xl font-bold text-white">${v.versionName} <span class="text-sm font-mono" style="color:var(--text-muted);">(${v.versionCode})</span></p>
+              </div>
+              <div>
+                <p class="text-xs font-mono uppercase tracking-wider mb-1" style="color:var(--text-muted);">File Size</p>
+                <p class="text-white font-mono">${v.fileSize}</p>
+              </div>
+              <div class="sm:col-span-2">
+                <p class="text-xs font-mono uppercase tracking-wider mb-1" style="color:var(--text-muted);">Release Notes</p>
+                <p class="text-sm whitespace-pre-wrap" style="color:var(--text-muted);">${v.releaseNotes || 'No release notes.'}</p>
+              </div>
+              <div class="sm:col-span-2">
+                <p class="text-xs font-mono uppercase tracking-wider mb-1" style="color:var(--text-muted);">Public URL</p>
+                <div class="flex flex-wrap items-center gap-2">
+                  <code class="text-xs font-mono px-3 py-1.5 rounded-lg font-mono" style="background:var(--surface-container);color:var(--primary-light);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block;">${v.apkUrl}</code>
+                  <span class="url-status badge-admin text-[10px]" data-url="${v.apkUrl}">Checking...</span>
+                </div>
+              </div>
+              <div>
+                <p class="text-xs font-mono uppercase tracking-wider mb-1" style="color:var(--text-muted);">Uploaded</p>
+                <p class="text-sm" style="color:var(--text-muted);">${formatDate(v.createdAt)}</p>
               </div>
             </div>
-            ${v.backupApkUrl ? `
-            <div class="sm:col-span-2">
-              <p class="text-xs font-mono uppercase tracking-wider mb-1" style="color:var(--text-muted);">Backup APK URL</p>
-              <div class="flex flex-wrap items-center gap-2">
-                <code class="text-xs font-mono px-3 py-1.5 rounded-lg" style="background:var(--surface-container);color:var(--text-muted);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block;">${truncateUrl(v.backupApkUrl, 60)}</code>
-                <span class="url-status badge-admin text-[10px]" data-url="${v.backupApkUrl}">Checking...</span>
-              </div>
-            </div>` : ''}
-            <div>
-              <p class="text-xs font-mono uppercase tracking-wider mb-1" style="color:var(--text-muted);">Uploaded</p>
-              <p class="text-sm" style="color:var(--text-muted);">${formatDate(v.uploadedAt || v.createdAt)}</p>
-            </div>
-          </div>
-        `;
+          `;
+        }
 
         // Recent Downloads
         const downloads = analytics.recentDownloads || analytics.downloads || [];
@@ -880,47 +927,191 @@
     const versionForm = $('#version-form');
     const versionFormMsg = $('#version-form-msg');
 
+    // File drag and drop variables
+    const dropZone = $('#drop-zone');
+    const apkFileInput = $('#apk-file-input');
+    const selectedFileInfo = $('#selected-file-info');
+    const selectedFileName = $('#selected-file-name');
+    const selectedFileSize = $('#selected-file-size');
+    const removeFileBtn = $('#remove-file-btn');
+    const uploadProgressContainer = $('#upload-progress-container');
+    const uploadProgressPercentage = $('#upload-progress-percentage');
+    const uploadProgressBar = $('#upload-progress-bar');
+    
+    let selectedFile = null;
+
     toggleAddBtn.addEventListener('click', () => {
       addVersionForm.classList.toggle('section-hidden');
     });
+    
     cancelAddBtn.addEventListener('click', () => {
       addVersionForm.classList.add('section-hidden');
       versionForm.reset();
+      selectedFile = null;
+      apkFileInput.value = '';
+      dropZone.classList.remove('hidden');
+      selectedFileInfo.classList.add('hidden');
       versionFormMsg.classList.add('hidden');
+      uploadProgressContainer.classList.add('hidden');
     });
 
-    versionForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn = $('#create-version-btn');
-      btn.disabled = true;
-      btn.innerHTML = '<span class="spinner"></span> Creating…';
-      versionFormMsg.classList.add('hidden');
+    // Trigger file browser on zone click
+    dropZone.addEventListener('click', () => {
+      apkFileInput.click();
+    });
 
-      try {
-        await apiFetch('/api/admin/version', {
-          method: 'POST',
-          body: JSON.stringify({
-            versionName: $('#v-name').value.trim(),
-            versionCode: parseInt($('#v-code').value, 10),
-            apkUrl: $('#v-url').value.trim(),
-            backupApkUrl: $('#v-backup').value.trim() || undefined,
-            fileSize: $('#v-size').value.trim(),
-            releaseNotes: $('#v-notes').value.trim(),
-          }),
-        });
-        showMessage(versionFormMsg, 'Version created successfully!', 'success');
-        versionForm.reset();
-        loadVersionsTab();
-        setTimeout(() => {
-          addVersionForm.classList.add('section-hidden');
-          versionFormMsg.classList.add('hidden');
-        }, 1500);
-      } catch (err) {
-        showMessage(versionFormMsg, err.message);
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = '<span class="material-symbols-outlined" style="font-size:18px;">rocket_launch</span> Create Version';
+    // Handle file selection
+    apkFileInput.addEventListener('change', (e) => {
+      handleFiles(e.target.files);
+    });
+
+    // Drag over effect
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.style.borderColor = 'var(--primary)';
+      dropZone.style.background = 'rgba(56,189,248,0.04)';
+    });
+
+    // Drag leave effect
+    ['dragleave', 'dragend'].forEach(type => {
+      dropZone.addEventListener(type, () => {
+        dropZone.style.borderColor = 'rgba(255,255,255,0.08)';
+        dropZone.style.background = 'rgba(255,255,255,0.01)';
+      });
+    });
+
+    // Handle drop
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.style.borderColor = 'rgba(255,255,255,0.08)';
+      dropZone.style.background = 'rgba(255,255,255,0.01)';
+      handleFiles(e.dataTransfer.files);
+    });
+
+    function formatBytes(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024;
+      const dm = 2;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+    }
+
+    function handleFiles(files) {
+      if (files.length === 0) return;
+      const file = files[0];
+      const ext = file.name.split('.').pop().toLowerCase();
+      
+      const isApkExt = ext === 'apk';
+
+      if (!isApkExt) {
+        alert('Invalid file format. Please select an Android APK (.apk) file.');
+        return;
       }
+
+      // Check max size: 250MB
+      const maxSize = 250 * 1024 * 1024;
+      if (file.size > maxSize) {
+        alert('File size exceeds the 250MB limit. Current size is ' + formatBytes(file.size));
+        return;
+      }
+
+      selectedFile = file;
+      selectedFileName.textContent = file.name;
+      selectedFileSize.textContent = formatBytes(file.size);
+      
+      dropZone.classList.add('hidden');
+      selectedFileInfo.classList.remove('hidden');
+    }
+
+    removeFileBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      selectedFile = null;
+      apkFileInput.value = '';
+      dropZone.classList.remove('hidden');
+      selectedFileInfo.classList.add('hidden');
+    });
+
+    versionForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      if (!selectedFile) {
+        showMessage(versionFormMsg, 'Please select or drag an APK file to upload.');
+        return;
+      }
+
+      const btn = $('#create-version-btn');
+      const cancelBtn = $('#cancel-add-form');
+      
+      btn.disabled = true;
+      cancelBtn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Uploading…';
+      versionFormMsg.classList.add('hidden');
+      uploadProgressContainer.classList.remove('hidden');
+
+      const formData = new FormData();
+      formData.append('versionName', $('#v-name').value.trim());
+      formData.append('versionCode', parseInt($('#v-code').value, 10));
+      formData.append('releaseNotes', $('#v-notes').value.trim());
+      formData.append('apkFile', selectedFile);
+
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', FITJONE_API_URL + '/api/admin/upload', true);
+      xhr.setRequestHeader('x-admin-key', getKey());
+
+      // Track progress
+      xhr.upload.onprogress = (event) => {
+        if (event.lengthComputable) {
+          const percentComplete = Math.round((event.loaded / event.total) * 100);
+          uploadProgressPercentage.textContent = percentComplete + '%';
+          uploadProgressBar.style.width = percentComplete + '%';
+        }
+      };
+
+      xhr.onload = () => {
+        uploadProgressContainer.classList.add('hidden');
+        btn.disabled = false;
+        cancelBtn.disabled = false;
+        btn.innerHTML = '<span class="material-symbols-outlined" style="font-size:18px;">rocket_launch</span> Create Version';
+
+        if (xhr.status === 401) {
+          localStorage.removeItem(STORAGE_KEY);
+          showLogin();
+          showMessage(loginError, 'Invalid Admin API Key');
+          return;
+        }
+
+        let response = {};
+        try {
+          response = JSON.parse(xhr.responseText);
+        } catch (_) {}
+
+        if (xhr.status >= 200 && xhr.status < 300) {
+          showMessage(versionFormMsg, 'Version uploaded and created successfully!', 'success');
+          versionForm.reset();
+          selectedFile = null;
+          dropZone.classList.remove('hidden');
+          selectedFileInfo.classList.add('hidden');
+          loadVersionsTab();
+          setTimeout(() => {
+            addVersionForm.classList.add('section-hidden');
+            versionFormMsg.classList.add('hidden');
+          }, 1500);
+        } else {
+          const errMsg = response.error || response.message || 'Upload failed';
+          showMessage(versionFormMsg, errMsg);
+        }
+      };
+
+      xhr.onerror = () => {
+        uploadProgressContainer.classList.add('hidden');
+        btn.disabled = false;
+        cancelBtn.disabled = false;
+        btn.innerHTML = '<span class="material-symbols-outlined" style="font-size:18px;">rocket_launch</span> Create Version';
+        showMessage(versionFormMsg, 'Network error during upload. Please check connection.');
+      };
+
+      xhr.send(formData);
     });
 
     async function loadVersionsTab() {
@@ -940,41 +1131,32 @@
         versions.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
 
         container.innerHTML = versions.map((v) => `
-          <div class="version-card ${v.isLatest ? 'is-latest' : ''} fade-in">
+          <div class="version-card is-latest fade-in">
             <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
               <div class="flex items-center gap-3">
                 <h3 class="font-heading text-lg font-bold text-white">v${v.versionName}</h3>
                 <span class="font-mono text-xs px-2 py-0.5 rounded" style="background:var(--surface-high);color:var(--text-muted);">Code ${v.versionCode}</span>
-                ${v.isLatest ? '<span class="badge-latest">LATEST</span>' : ''}
+                <span class="badge-latest">LATEST</span>
               </div>
               <div class="flex items-center gap-2">
-                ${!v.isLatest ? `<button class="btn-outline rounded-lg px-3 py-1.5 text-xs cursor-pointer flex items-center gap-1" onclick="setLatest('${v._id || v.id}')"><span class="material-symbols-outlined" style="font-size:14px;">star</span> Set Latest</button>` : ''}
-                <button class="btn-danger rounded-lg px-3 py-1.5 text-xs cursor-pointer flex items-center gap-1" onclick="deleteVersion('${v._id || v.id}')"><span class="material-symbols-outlined" style="font-size:14px;">delete</span> Delete</button>
+                <button class="btn-danger rounded-lg px-3 py-1.5 text-xs cursor-pointer flex items-center gap-1" onclick="confirmDeleteVersion('${v._id || v.id}')"><span class="material-symbols-outlined" style="font-size:14px;">delete</span> Delete</button>
               </div>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
               <div>
                 <p class="text-xs font-mono uppercase tracking-wider mb-1" style="color:var(--text-muted);">File Size</p>
-                <p class="text-white">${v.fileSize || '—'}</p>
+                <p class="text-white font-mono">${v.fileSize || '—'}</p>
               </div>
               <div class="sm:col-span-2">
-                <p class="text-xs font-mono uppercase tracking-wider mb-1" style="color:var(--text-muted);">Primary URL</p>
+                <p class="text-xs font-mono uppercase tracking-wider mb-1" style="color:var(--text-muted);">Download Link</p>
                 <div class="flex items-center gap-2">
-                  <a href="${v.apkUrl || '#'}" target="_blank" class="font-mono text-xs hover:underline" style="color:var(--primary-light);word-break:break-all;">${truncateUrl(v.apkUrl, 40)}</a>
+                  <a href="${v.apkUrl || '#'}" target="_blank" class="font-mono text-xs hover:underline" style="color:var(--primary-light);word-break:break-all;">${truncateUrl(v.apkUrl, 60)}</a>
                   <span class="url-status badge-admin text-[10px]" data-url="${v.apkUrl}">Checking...</span>
                 </div>
               </div>
-              ${v.backupApkUrl ? `
-              <div class="sm:col-span-2">
-                <p class="text-xs font-mono uppercase tracking-wider mb-1" style="color:var(--text-muted);">Backup URL</p>
-                <div class="flex items-center gap-2">
-                  <a href="${v.backupApkUrl || '#'}" target="_blank" class="font-mono text-xs hover:underline" style="color:var(--text-muted);word-break:break-all;">${truncateUrl(v.backupApkUrl, 40)}</a>
-                  <span class="url-status badge-admin text-[10px]" data-url="${v.backupApkUrl}">Checking...</span>
-                </div>
-              </div>` : ''}
               <div class="sm:col-span-3">
                 <p class="text-xs font-mono uppercase tracking-wider mb-1" style="color:var(--text-muted);">Release Notes</p>
-                <p style="color:var(--text-muted);" class="text-sm">${v.releaseNotes || 'No notes.'}</p>
+                <p style="color:var(--text-muted);" class="text-sm whitespace-pre-wrap">${v.releaseNotes || 'No notes.'}</p>
               </div>
               <div>
                 <p class="text-xs font-mono uppercase tracking-wider mb-1" style="color:var(--text-muted);">Created</p>
@@ -990,27 +1172,44 @@
       }
     }
 
-    async function setLatest(id) {
-      try {
-        await apiFetch(`/api/admin/version/${id}`, {
-          method: 'PUT',
-          body: JSON.stringify({ isLatest: true }),
-        });
-        loadVersionsTab();
-      } catch (err) {
-        alert('Error setting latest: ' + err.message);
-      }
+    // Deletion modal script variables
+    const deleteModal = $('#delete-modal');
+    const cancelDeleteBtn = $('#cancel-delete-btn');
+    const confirmDeleteBtn = $('#confirm-delete-btn');
+    let deleteTargetId = null;
+
+    function confirmDeleteVersion(id) {
+      deleteTargetId = id;
+      deleteModal.classList.remove('hidden');
     }
 
-    async function deleteVersion(id) {
-      if (!confirm('Are you sure you want to delete this version? This action cannot be undone.')) return;
+    cancelDeleteBtn.addEventListener('click', () => {
+      deleteModal.classList.add('hidden');
+      deleteTargetId = null;
+    });
+
+    confirmDeleteBtn.addEventListener('click', async () => {
+      if (!deleteTargetId) return;
+      
+      confirmDeleteBtn.disabled = true;
+      confirmDeleteBtn.innerHTML = '<span class="spinner"></span> Deleting…';
+
       try {
-        await apiFetch(`/api/admin/version/${id}`, { method: 'DELETE' });
+        await apiFetch(`/api/admin/version/${deleteTargetId}`, { method: 'DELETE' });
+        deleteModal.classList.add('hidden');
+        deleteTargetId = null;
         loadVersionsTab();
+        // Also refresh dashboard if it's currently open
+        if ($('#tab-dashboard').classList.contains('active')) {
+          loadDashboardTab();
+        }
       } catch (err) {
         alert('Error deleting version: ' + err.message);
+      } finally {
+        confirmDeleteBtn.disabled = false;
+        confirmDeleteBtn.innerHTML = '<span class="material-symbols-outlined" style="font-size:16px;">delete_forever</span> Delete Permanently';
       }
-    }
+    });
 
     // ═══════════════════ ANALYTICS TAB ═══════════════════
     const BAR_COLORS = [
