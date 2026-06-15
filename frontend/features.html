@@ -158,7 +158,46 @@
         }
 
         .parallax-target {
+            will-change: transform;
             transition: transform 0.1s ease-out;
+        }
+
+        .phone-mockup-target {
+            will-change: transform;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+        }
+
+        .parallax-bg-blob {
+            position: absolute;
+            will-change: transform;
+            pointer-events: none;
+            z-index: 0;
+            border-radius: 9999px;
+            filter: blur(120px);
+            opacity: 0.15;
+        }
+
+        .floating-badge {
+            position: absolute;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 15px rgba(56, 189, 248, 0.08);
+            border-radius: 16px;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            pointer-events: none;
+            z-index: 20;
+            will-change: transform;
+            transition: transform 0.1s ease-out;
+        }
+
+        .floating-badge span.material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
 
         .stagger-item {
@@ -203,15 +242,22 @@
   </div>
 </div>
 <nav class="fixed top-0 w-full z-50 bg-surface-glass backdrop-blur-xl border-b border-white/5"><div class="flex justify-between items-center h-16 px-gutter max-w-container-max mx-auto"><div class="flex items-center gap-2"><a href="index.html" class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-2xl" data-icon="fitness_center" style="font-variation-settings: &quot;FILL&quot; 1;">fitness_center</span><span class="font-display-lg text-headline-sm text-on-surface">FitJone</span></a></div><div class="hidden md:flex items-center gap-lg"><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors hover:bg-surface-container-high/50 px-3 py-2 rounded-md transition-all duration-200" href="index.html">Home</a><a class="font-body-md text-body-md text-primary font-bold relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-0.5 after:bg-primary after:rounded-full px-3 py-2" href="features.html">Features</a><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors hover:bg-surface-container-high/50 px-3 py-2 rounded-md transition-all duration-200" href="index.html#screenshots">Download<br></a><a class="font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors hover:bg-surface-container-high/50 px-3 py-2 rounded-md transition-all duration-200" href="#">About</a></div><button data-download class="bg-primary-container text-on-primary-container px-lg py-2 rounded-md font-label-md text-label-md hover:bg-primary transition-colors active:scale-95 duration-200 uppercase tracking-widest">DOWNLOAD APP</button></div></nav>
-<main class="pt-20" style="--mouse-x: 20px; --mouse-y: 1848px;">
+<main class="pt-20 relative" style="--mouse-x: 20px; --mouse-y: 1848px;">
+<!-- Parallax Background Glowing Blobs -->
+<div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+  <div class="parallax-bg-blob absolute bg-gradient-to-tr from-[#38bdf8]/35 to-[#8ed5ff]/10" style="width: 650px; height: 650px; top: 100px; right: -150px;" data-parallax-speed="0.45"></div>
+  <div class="parallax-bg-blob absolute bg-gradient-to-tr from-[#a855f7]/25 to-[#ec4899]/10" style="width: 750px; height: 750px; top: 1100px; left: -250px;" data-parallax-speed="0.35"></div>
+  <div class="parallax-bg-blob absolute bg-gradient-to-tr from-[#3b82f6]/25 to-[#06b6d4]/15" style="width: 700px; height: 700px; top: 2300px; right: -200px;" data-parallax-speed="0.5"></div>
+  <div class="parallax-bg-blob absolute bg-gradient-to-tr from-[#10b981]/25 to-[#38bdf8]/10" style="width: 850px; height: 850px; top: 3500px; left: -150px;" data-parallax-speed="0.4"></div>
+</div>
 <!-- Hero Section -->
 <section class="min-h-[80vh] flex items-center justify-center relative overflow-hidden px-gutter py-3xl">
 <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(56,189,248,0.08),transparent_70%)]"></div>
 <div class="max-w-4xl text-center z-10 reveal-on-scroll space-y-lg is-visible">
-<span class="inline-block px-md py-1 border border-primary/30 rounded-full text-primary font-label-md tracking-[0.2em] mb-md">FEATURES</span>
-<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg leading-none tracking-tighter">Everything You Need To Train Smarter.</h1>
-<p class="font-body-lg text-text-muted max-w-2xl mx-auto">Master your fitness journey with personalized expert coaching and cutting-edge AI form correction built directly into your pocket.</p>
-<div class="pt-xl flex justify-center gap-md">
+<span class="inline-block px-md py-1 border border-primary/30 rounded-full text-primary font-label-md tracking-[0.2em] mb-md parallax-target" data-parallax-speed="0.12">FEATURES</span>
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg leading-none tracking-tighter parallax-target" data-parallax-speed="0.08">Everything You Need To Train Smarter.</h1>
+<p class="font-body-lg text-text-muted max-w-2xl mx-auto parallax-target" data-parallax-speed="0.04">Master your fitness journey with personalized expert coaching and cutting-edge AI form correction built directly into your pocket.</p>
+<div class="pt-xl flex justify-center gap-md parallax-target" data-parallax-speed="0.02">
 <span class="material-symbols-outlined text-primary text-4xl animate-bounce">keyboard_arrow_down</span>
 </div>
 </div>
@@ -221,21 +267,31 @@
 <div class="max-w-container-max mx-auto px-gutter">
 <div class="grid lg:grid-cols-2 gap-2xl items-center">
 <div class="flex justify-center lg:justify-start reveal-on-scroll is-visible">
-<div class="w-[320px] h-[640px] rounded-[55px] bg-surface-container-highest border-[2px] border-outline-variant/50 shadow-2xl relative hover:scale-105 transition-transform duration-500 cursor-default ring-1 ring-black/20">
-<div class="absolute -left-[3px] top-24 w-[3px] h-8 bg-outline-variant rounded-l-sm"></div>
-<div class="absolute -left-[3px] top-36 w-[3px] h-12 bg-outline-variant rounded-l-sm"></div>
-<div class="absolute -left-[3px] top-52 w-[3px] h-12 bg-outline-variant rounded-l-sm"></div>
-<div class="absolute -right-[3px] top-40 w-[3px] h-20 bg-outline-variant rounded-r-sm"></div>
-<div class="absolute inset-[6px] rounded-[48px] bg-black p-[8px] shadow-inner">
-<div class="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-full z-50 flex items-center justify-end px-3">
-<div class="w-2 h-2 rounded-full bg-white/5"></div>
-</div>
-<div class="relative w-full h-full rounded-[40px] overflow-hidden">
-<img alt="App Screenshot 1" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArlUS8RkMnUzYJILtWLeDYrXd2DME-NJktV0xjZ0i2xGm_6imA3dWNjTx4e9Ht2oV_7FSj00RbjjvKx1x2dW4OmnFQs3_tsnHrGjyiRexHsHiYJRkezO-XliNyhBndicc50t41rW8I_JpRoSoBhGi0EiPuBp63UwCw-ctSNTvoJ6bz8L7EN5mHg3Y6D1tjGWMJ0nE2A0fKanRBfoVZlqg168hxjdBxTcoVA20spBdtCiBRsuOdzMB94rqzXqh3S9D6PiBNE465w_8">
-<div class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/10 via-transparent to-white/5 z-10 opacity-40"></div>
-</div>
-</div>
-</div>
+  <div class="relative">
+    <div class="w-[320px] h-[640px] rounded-[55px] bg-surface-container-highest border-[2px] border-outline-variant/50 shadow-2xl relative phone-mockup-target cursor-default ring-1 ring-black/20" data-parallax-speed="-0.06">
+      <div class="absolute -left-[3px] top-24 w-[3px] h-8 bg-outline-variant rounded-l-sm"></div>
+      <div class="absolute -left-[3px] top-36 w-[3px] h-12 bg-outline-variant rounded-l-sm"></div>
+      <div class="absolute -left-[3px] top-52 w-[3px] h-12 bg-outline-variant rounded-l-sm"></div>
+      <div class="absolute -right-[3px] top-40 w-[3px] h-20 bg-outline-variant rounded-r-sm"></div>
+      <div class="absolute inset-[6px] rounded-[48px] bg-black p-[8px] shadow-inner">
+        <div class="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-full z-50 flex items-center justify-end px-3">
+          <div class="w-2 h-2 rounded-full bg-white/5"></div>
+        </div>
+        <div class="relative w-full h-full rounded-[40px] overflow-hidden">
+          <img alt="App Screenshot 1" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArlUS8RkMnUzYJILtWLeDYrXd2DME-NJktV0xjZ0i2xGm_6imA3dWNjTx4e9Ht2oV_7FSj00RbjjvKx1x2dW4OmnFQs3_tsnHrGjyiRexHsHiYJRkezO-XliNyhBndicc50t41rW8I_JpRoSoBhGi0EiPuBp63UwCw-ctSNTvoJ6bz8L7EN5mHg3Y6D1tjGWMJ0nE2A0fKanRBfoVZlqg168hxjdBxTcoVA20spBdtCiBRsuOdzMB94rqzXqh3S9D6PiBNE465w_8">
+          <div class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/10 via-transparent to-white/5 z-10 opacity-40"></div>
+        </div>
+      </div>
+    </div>
+    <!-- Floating Badge -->
+    <div class="floating-badge absolute top-20 -right-12" data-parallax-speed="0.08">
+      <span class="material-symbols-outlined text-primary text-xl">workspace_premium</span>
+      <div class="flex flex-col">
+        <span class="text-[10px] font-label-md text-primary font-bold uppercase tracking-wider">Expert Team</span>
+        <span class="text-xs text-white/85">Certified Coach</span>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="space-y-xl reveal-on-scroll is-visible">
 <div class="space-y-md">
@@ -293,23 +349,33 @@
 </ul>
 </div>
 <div class="order-1 lg:order-2 flex justify-center lg:justify-end reveal-on-scroll is-visible">
-<div class="w-[320px] h-[640px] rounded-[55px] bg-surface-container-highest border-[2px] border-outline-variant/50 shadow-2xl relative overflow-hidden ring-1 ring-black/20">
-<div class="absolute -left-[3px] top-24 w-[3px] h-8 bg-outline-variant rounded-l-sm"></div>
-<div class="absolute -left-[3px] top-36 w-[3px] h-12 bg-outline-variant rounded-l-sm"></div>
-<div class="absolute -left-[3px] top-52 w-[3px] h-12 bg-outline-variant rounded-l-sm"></div>
-<div class="absolute -right-[3px] top-40 w-[3px] h-20 bg-outline-variant rounded-r-sm"></div>
-<div class="absolute inset-[6px] rounded-[48px] bg-black p-[8px] shadow-inner">
-<div class="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-full z-50 flex items-center justify-end px-3">
-<div class="w-2 h-2 rounded-full bg-white/5"></div>
-</div>
-<div class="relative w-full h-full rounded-[40px] overflow-hidden">
-<div class="scanning-line"></div>
-<div class="absolute inset-0 bg-primary/5 animate-pulse pointer-events-none"></div>
-<img alt="AI Form Analysis Mockup" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9vk2yuPwITwvSrjwgcDTlCdObjUN0S3MA9C-SMMYh14p1CkHgh_BawoRsG_1mYHBxlqMy7Hi07V16RSMZCQog6twQr7xUuJll50gKXXGFhBVTiZPPjTSNTF1adT-O8P35iTIy684UP3n_dSjW4s_-eHfgh-qmRoaBU4SxSe67VLT91QseMuE6eqOMgJIixVJBHcLGcq54SD3ieN2tPWqMOyEbqr7PgvLywOB6J9BLG6Laz-j5dX5Iz05Ze90UG42Au9S4PbvXyrc">
-<div class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/10 via-transparent to-white/5 z-10 opacity-40"></div>
-</div>
-</div>
-</div>
+  <div class="relative">
+    <div class="w-[320px] h-[640px] rounded-[55px] bg-surface-container-highest border-[2px] border-outline-variant/50 shadow-2xl relative overflow-hidden phone-mockup-target cursor-default ring-1 ring-black/20" data-parallax-speed="-0.04">
+      <div class="absolute -left-[3px] top-24 w-[3px] h-8 bg-outline-variant rounded-l-sm"></div>
+      <div class="absolute -left-[3px] top-36 w-[3px] h-12 bg-outline-variant rounded-l-sm"></div>
+      <div class="absolute -left-[3px] top-52 w-[3px] h-12 bg-outline-variant rounded-l-sm"></div>
+      <div class="absolute -right-[3px] top-40 w-[3px] h-20 bg-outline-variant rounded-r-sm"></div>
+      <div class="absolute inset-[6px] rounded-[48px] bg-black p-[8px] shadow-inner">
+        <div class="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-full z-50 flex items-center justify-end px-3">
+          <div class="w-2 h-2 rounded-full bg-white/5"></div>
+        </div>
+        <div class="relative w-full h-full rounded-[40px] overflow-hidden">
+          <div class="scanning-line"></div>
+          <div class="absolute inset-0 bg-primary/5 animate-pulse pointer-events-none"></div>
+          <img alt="AI Form Analysis Mockup" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9vk2yuPwITwvSrjwgcDTlCdObjUN0S3MA9C-SMMYh14p1CkHgh_BawoRsG_1mYHBxlqMy7Hi07V16RSMZCQog6twQr7xUuJll50gKXXGFhBVTiZPPjTSNTF1adT-O8P35iTIy684UP3n_dSjW4s_-eHfgh-qmRoaBU4SxSe67VLT91QseMuE6eqOMgJIixVJBHcLGcq54SD3ieN2tPWqMOyEbqr7PgvLywOB6J9BLG6Laz-j5dX5Iz05Ze90UG42Au9S4PbvXyrc">
+          <div class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/10 via-transparent to-white/5 z-10 opacity-40"></div>
+        </div>
+      </div>
+    </div>
+    <!-- Floating Badge -->
+    <div class="floating-badge absolute bottom-24 -left-12" data-parallax-speed="0.08">
+      <span class="material-symbols-outlined text-primary text-xl">psychology</span>
+      <div class="flex flex-col">
+        <span class="text-[10px] font-label-md text-primary font-bold uppercase tracking-wider">Vision Engine</span>
+        <span class="text-xs text-white/85">AI Active</span>
+      </div>
+    </div>
+  </div>
 </div>
 </div>
 </div>
@@ -319,24 +385,31 @@
 <div class="max-w-container-max mx-auto px-gutter">
 <div class="grid lg:grid-cols-2 gap-2xl items-center">
 <div class="flex justify-center lg:justify-start reveal-on-scroll is-visible">
-<div class="w-[320px] h-[640px] rounded-[55px] bg-surface-container-highest border-[2px] border-outline-variant/50 shadow-2xl relative ring-1 ring-black/20">
-<div class="absolute -left-[3px] top-24 w-[3px] h-8 bg-outline-variant rounded-l-sm"></div>
-<div class="absolute -left-[3px] top-36 w-[3px] h-12 bg-outline-variant rounded-l-sm"></div>
-<div class="absolute -left-[3px] top-52 w-[3px] h-12 bg-outline-variant rounded-l-sm"></div>
-<div class="absolute -right-[3px] top-40 w-[3px] h-20 bg-outline-variant rounded-r-sm"></div>
-<div class="absolute inset-[6px] rounded-[48px] bg-black p-[8px] shadow-inner">
-<div class="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-full z-50 flex items-center justify-end px-3">
-<div class="w-2 h-2 rounded-full bg-white/5"></div>
-</div>
-<div class="relative w-full h-full rounded-[40px] overflow-hidden">
-<img alt="Challenges Mockup" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBzP8bH4SxO9tBLpXzCMy-idJX4ehe4Sj-C4tdSV1f9QKcBzZbqdllCIOsEJ6hsQXU4W3xRy27T5GKCdgbEpg4K5efMgJXyvfLSEQX_Brs5oGeMaxFF-ajLpl3SvU3taDNvjg2G-v3fBLjoZOy1fG03vGC3rxphlo0kQdUGhmlDPGIVQ1EUlv85gqZwB9QghlCHgk-3b7xIy9oeA9m1r5yGMhZupamFjSseyGbjvw7-sXljp4EtMbmCDciL5gK3GDhIu7flLmuqrQ">
-<div class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/10 via-transparent to-white/5 z-10 opacity-40"></div>
-</div>
-</div>
-<div class="absolute bottom-12 right-[-20px] glass-panel p-md rounded-xl animate-bounce" style="animation-duration: 3s;">
-<span class="material-symbols-outlined text-yellow-400 text-4xl" data-weight="fill">military_tech</span>
-</div>
-</div>
+  <div class="relative">
+    <div class="w-[320px] h-[640px] rounded-[55px] bg-surface-container-highest border-[2px] border-outline-variant/50 shadow-2xl relative phone-mockup-target cursor-default ring-1 ring-black/20" data-parallax-speed="-0.05">
+      <div class="absolute -left-[3px] top-24 w-[3px] h-8 bg-outline-variant rounded-l-sm"></div>
+      <div class="absolute -left-[3px] top-36 w-[3px] h-12 bg-outline-variant rounded-l-sm"></div>
+      <div class="absolute -left-[3px] top-52 w-[3px] h-12 bg-outline-variant rounded-l-sm"></div>
+      <div class="absolute -right-[3px] top-40 w-[3px] h-20 bg-outline-variant rounded-r-sm"></div>
+      <div class="absolute inset-[6px] rounded-[48px] bg-black p-[8px] shadow-inner">
+        <div class="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-full z-50 flex items-center justify-end px-3">
+          <div class="w-2 h-2 rounded-full bg-white/5"></div>
+        </div>
+        <div class="relative w-full h-full rounded-[40px] overflow-hidden">
+          <img alt="Challenges Mockup" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBzP8bH4SxO9tBLpXzCMy-idJX4ehe4Sj-C4tdSV1f9QKcBzZbqdllCIOsEJ6hsQXU4W3xRy27T5GKCdgbEpg4K5efMgJXyvfLSEQX_Brs5oGeMaxFF-ajLpl3SvU3taDNvjg2G-v3fBLjoZOy1fG03vGC3rxphlo0kQdUGhmlDPGIVQ1EUlv85gqZwB9QghlCHgk-3b7xIy9oeA9m1r5yGMhZupamFjSseyGbjvw7-sXljp4EtMbmCDciL5gK3GDhIu7flLmuqrQ">
+          <div class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/10 via-transparent to-white/5 z-10 opacity-40"></div>
+        </div>
+      </div>
+    </div>
+    <!-- Floating Badge -->
+    <div class="floating-badge absolute bottom-12 -right-6 animate-bounce" style="animation-duration: 3.5s; pointer-events: none;" data-parallax-speed="0.12">
+      <span class="material-symbols-outlined text-yellow-400 text-3xl" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+      <div class="flex flex-col">
+        <span class="text-[10px] font-label-md text-yellow-400 font-bold uppercase tracking-wider">Milestone</span>
+        <span class="text-xs text-white/85">Level Up</span>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="space-y-xl reveal-on-scroll is-visible">
 <div class="space-y-md">
@@ -399,25 +472,35 @@
 </ul>
 </div>
 <div class="order-1 lg:order-2 flex justify-center lg:justify-end reveal-on-scroll is-visible">
-<div class="w-[320px] h-[640px] rounded-[55px] bg-surface-container-highest border-[2px] border-outline-variant/50 shadow-2xl relative group ring-1 ring-black/20">
-<div class="absolute -left-[3px] top-24 w-[3px] h-8 bg-outline-variant rounded-l-sm"></div>
-<div class="absolute -left-[3px] top-36 w-[3px] h-12 bg-outline-variant rounded-l-sm"></div>
-<div class="absolute -left-[3px] top-52 w-[3px] h-12 bg-outline-variant rounded-l-sm"></div>
-<div class="absolute -right-[3px] top-40 w-[3px] h-20 bg-outline-variant rounded-r-sm"></div>
-<div class="absolute inset-[6px] rounded-[48px] bg-black p-[8px] shadow-inner">
-<div class="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-full z-50 flex items-center justify-end px-3">
-<div class="w-2 h-2 rounded-full bg-white/5"></div>
-</div>
-<div class="relative w-full h-full rounded-[40px] overflow-hidden">
-<div class="absolute top-20 left-1/2 -translate-x-1/2 w-3/4 glass-panel p-sm rounded-lg flex items-center gap-sm z-20">
-<span class="material-symbols-outlined text-sm">search</span>
-<span class="font-label-sm text-white/50">Deadlift technique...</span>
-</div>
-<img alt="Library Mockup" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9Hh_CG-j9BKlQLlzqOGf9McvYwn14a50c9pLaDJUh17n8sr_o4lL0eKBJCkAQkARza8ImDyKBfzRNuFssXaNIEW-Zg871PkcGWkCH1j2RcXDaLPFj4NoL5bEwJqEj9wn0G4lgCZo0bNOIrqIqQF035OF0pXR8x7mPsTOgA_wDrW23sUurm7On8LyRBUqxBHU91ndaqF_jmtN352YLExBYHWus6ImerMip81r5YboGAqRC1bNdHfHAq526RWx9ZzF-i5gSkS5LT1M">
-<div class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/10 via-transparent to-white/5 z-10 opacity-40"></div>
-</div>
-</div>
-</div>
+  <div class="relative">
+    <div class="w-[320px] h-[640px] rounded-[55px] bg-surface-container-highest border-[2px] border-outline-variant/50 shadow-2xl relative group phone-mockup-target cursor-default ring-1 ring-black/20" data-parallax-speed="-0.04">
+      <div class="absolute -left-[3px] top-24 w-[3px] h-8 bg-outline-variant rounded-l-sm"></div>
+      <div class="absolute -left-[3px] top-36 w-[3px] h-12 bg-outline-variant rounded-l-sm"></div>
+      <div class="absolute -left-[3px] top-52 w-[3px] h-12 bg-outline-variant rounded-l-sm"></div>
+      <div class="absolute -right-[3px] top-40 w-[3px] h-20 bg-outline-variant rounded-r-sm"></div>
+      <div class="absolute inset-[6px] rounded-[48px] bg-black p-[8px] shadow-inner">
+        <div class="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-full z-50 flex items-center justify-end px-3">
+          <div class="w-2 h-2 rounded-full bg-white/5"></div>
+        </div>
+        <div class="relative w-full h-full rounded-[40px] overflow-hidden">
+          <div class="absolute top-20 left-1/2 -translate-x-1/2 w-3/4 glass-panel p-sm rounded-lg flex items-center gap-sm z-20">
+            <span class="material-symbols-outlined text-sm">search</span>
+            <span class="font-label-sm text-white/50">Deadlift technique...</span>
+          </div>
+          <img alt="Library Mockup" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9Hh_CG-j9BKlQLlzqOGf9McvYwn14a50c9pLaDJUh17n8sr_o4lL0eKBJCkAQkARza8ImDyKBfzRNuFssXaNIEW-Zg871PkcGWkCH1j2RcXDaLPFj4NoL5bEwJqEj9wn0G4lgCZo0bNOIrqIqQF035OF0pXR8x7mPsTOgA_wDrW23sUurm7On8LyRBUqxBHU91ndaqF_jmtN352YLExBYHWus6ImerMip81r5YboGAqRC1bNdHfHAq526RWx9ZzF-i5gSkS5LT1M">
+          <div class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/10 via-transparent to-white/5 z-10 opacity-40"></div>
+        </div>
+      </div>
+    </div>
+    <!-- Floating Badge -->
+    <div class="floating-badge absolute top-32 -left-12" data-parallax-speed="0.1">
+      <span class="material-symbols-outlined text-primary text-xl">play_circle</span>
+      <div class="flex flex-col">
+        <span class="text-[10px] font-label-md text-primary font-bold uppercase tracking-wider">Video Guide</span>
+        <span class="text-xs text-white/85">500+ Exercises</span>
+      </div>
+    </div>
+  </div>
 </div>
 </div>
 </div>
@@ -473,26 +556,57 @@
 
         document.querySelectorAll('.reveal-on-scroll').forEach(el => revealObserver.observe(el));
 
-        // Parallax & Tilt Effect
-        document.addEventListener('mousemove', (e) => {
-            const mockups = document.querySelectorAll('.phone-mockup');
-            const mouseX = e.clientX / window.innerWidth - 0.5;
-            const mouseY = e.clientY / window.innerHeight - 0.5;
+        // Parallax and Smooth Scroll Setup
+        let targetScrollY = window.pageYOffset;
+        let currentScrollY = window.pageYOffset;
+        let mouseX = 0;
+        let mouseY = 0;
 
-            mockups.forEach(mockup => {
-                const rect = mockup.getBoundingClientRect();
-                const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-                
-                if (isVisible) {
-                    // Subtle tilt based on mouse position
-                    const rotateY = mouseX * 20;
-                    const rotateX = mouseY * -20;
-                    // Preserve original base rotation (5deg / -5deg)
-                    const baseRotateY = mockup.style.transform.includes('rotateY(5deg)') ? 5 : -5;
-                    mockup.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${baseRotateY + rotateY}deg)`;
+        window.addEventListener('scroll', () => {
+            targetScrollY = window.pageYOffset;
+        }, { passive: true });
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX / window.innerWidth - 0.5;
+            mouseY = e.clientY / window.innerHeight - 0.5;
+        });
+
+        // Query all parallax targets once for performance
+        const parallaxElements = document.querySelectorAll('[data-parallax-speed]');
+
+        function updateParallax() {
+            // Lerp scroll position for high-performance organic momentum
+            if (Math.abs(targetScrollY - currentScrollY) > 0.05) {
+                currentScrollY += (targetScrollY - currentScrollY) * 0.1;
+            } else {
+                currentScrollY = targetScrollY;
+            }
+
+            parallaxElements.forEach(el => {
+                const speed = parseFloat(el.dataset.parallaxSpeed) || 0;
+                const scrollOffset = currentScrollY * speed;
+
+                if (el.classList.contains('phone-mockup-target')) {
+                    // Check visibility to save GPU resources
+                    const rect = el.getBoundingClientRect();
+                    const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+                    if (isVisible) {
+                        const isLeftPhone = el.closest('.justify-start');
+                        const baseRotateY = isLeftPhone ? 3 : -3;
+                        const rotateY = mouseX * 15;
+                        const rotateX = mouseY * -15;
+                        el.style.transform = `perspective(1000px) translate3d(0, ${scrollOffset}px, 0) rotateX(${rotateX}deg) rotateY(${baseRotateY + rotateY}deg)`;
+                    }
+                } else {
+                    el.style.transform = `translate3d(0, ${scrollOffset}px, 0)`;
                 }
             });
-        });
+
+            requestAnimationFrame(updateParallax);
+        }
+
+        // Run smooth scroll loop
+        requestAnimationFrame(updateParallax);
 
         // Background Mouse Follow
         const main = document.querySelector('main');
