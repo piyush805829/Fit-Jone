@@ -15,9 +15,14 @@ const apkVersionSchema = new mongoose.Schema(
       type: String,
       required: [true, 'APK URL is required'],
     },
-    objectKey: {
+    releaseId: {
       type: String,
-      required: [true, 'Object key is required'],
+      required: [true, 'Release ID is required'],
+      trim: true,
+    },
+    assetId: {
+      type: String,
+      required: [true, 'Asset ID is required'],
       trim: true,
     },
     fileSize: {

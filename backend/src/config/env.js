@@ -8,11 +8,9 @@ dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 const requiredVars = [
   'MONGODB_URI', 
   'ADMIN_API_KEY',
-  'R2_ACCOUNT_ID',
-  'R2_ACCESS_KEY_ID',
-  'R2_SECRET_ACCESS_KEY',
-  'R2_BUCKET_NAME',
-  'R2_PUBLIC_URL'
+  'GITHUB_TOKEN',
+  'GITHUB_OWNER',
+  'GITHUB_REPO'
 ];
 
 const missing = requiredVars.filter((key) => !process.env[key]);
@@ -31,11 +29,9 @@ const env = {
   nodeEnv: process.env.NODE_ENV || 'development',
   rateLimitWindowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS, 10) || 900000, // 15 min
   rateLimitMaxRequests: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS, 10) || 100,
-  r2AccountId: process.env.R2_ACCOUNT_ID,
-  r2AccessKeyId: process.env.R2_ACCESS_KEY_ID,
-  r2SecretAccessKey: process.env.R2_SECRET_ACCESS_KEY,
-  r2BucketName: process.env.R2_BUCKET_NAME,
-  r2PublicUrl: (process.env.R2_PUBLIC_URL || '').replace(/\/$/, ''),
+  githubToken: process.env.GITHUB_TOKEN,
+  githubOwner: process.env.GITHUB_OWNER,
+  githubRepo: process.env.GITHUB_REPO,
 };
 
 module.exports = env;
